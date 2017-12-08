@@ -1836,10 +1836,10 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
   }elseif (strpos($_msg) !== false && $seqcode == "2001"  )  {
                  $food =  $_msg;
-                 $food_mes = 'ในวันนี้คุณทาน'.$food;
-                 $u = pg_escape_string($food_mes); 
+                 $food_mes = 'ในวันนี้คุณได้ทาน'.$food.'ไปนะคะ';
+                 $u = pg_escape_string($_msg); 
 
-                 $vitamin = 'ในวันนี้คุณทานวิตามินไปหรือยังคะ?';
+                 $vitamin = 'วันนี้คุณทานวิตามินไปหรือยังคะ?';
                  $replyToken = $event['replyToken'];
                  // $messages = [
                  //                'type' => 'template',
@@ -1881,8 +1881,8 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                         ],
                                         [
                                             'type' => 'message',
-                                            'label' => 'ยังไม่ทาน',
-                                            'text' => 'ยังไม่ทาน'
+                                            'label' => 'ยังไม่ได้ทาน',
+                                            'text' => 'ยังไม่ได้ทาน'
                                         ]
                                     ]
                                  ]     
