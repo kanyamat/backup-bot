@@ -1834,7 +1834,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 ########################################################################################################################################################
 
 
-  }elseif (is_numeric($_msg) !== false && $seqcode == "2001"  )  {
+  }elseif (strpos($_msg) !== false && $seqcode == "2001"  )  {
                  $food =  $_msg;
                  $food_mes = 'ในวันนี้คุณทาน'.$food;
                  $u = pg_escape_string($food_mes); 
