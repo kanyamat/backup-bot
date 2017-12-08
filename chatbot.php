@@ -1788,6 +1788,127 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                              ];   
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
 
+
+
+########################################################################################################### 
+}elseif ($event['message']['text'] == "น้ำหนักถูกต้อง" && $seqcode ='2001') {
+    $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($check_q)) {
+            
+                  echo $answer_weight = $row[3];  
+                } 
+             
+    $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
+            while ($row = pg_fetch_row($check)) {
+                echo  $p_week =  $row[0]+1;
+                } 
+    $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_week, preg_weight,updated_at )VALUES('{$user_id}',$p_week,$answer_weight ,  NOW()) ") or die(pg_errormessage());  
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000', '' ,'0000','0',NOW(),NOW())") or die(pg_errormessage()); 
+
+            $replyToken = $event['replyToken'];
+                              
+                              $messages = [                            
+                                  'type' => 'template',
+                                  'altText' => 'template',
+                                  'template' => [
+                                      'type' => 'buttons',
+                                      'thumbnailImageUrl' => 'https://backup-bot.herokuapp.com/week/'.$p_week .'.jpg',
+                                      'title' => 'ลูกน้อยของคุณ',
+                                      'text' =>  'อายุ'.$p_week .'สัปดาห์',
+                                      'actions' => [
+                                          // [
+                                          //     'type' => 'postback',
+                                          //     'label' => 'good',
+                                          //     'data' => 'value'
+                                          // ],
+                                          [
+                                              'type' => 'uri',
+                                              'label' => 'กราฟ',
+                                              'uri' => 'https://backup-bot.herokuapp.com/chart_bot.php?data='.$user_id
+                                          ]
+                                      ]
+                                  ]
+                              ]; 
+
+
+########################################################################################################################################################
+
+
+  }elseif (is_numeric($_msg) !== false && $seqcode == "2001"  )  {
+                 $food =  $_msg;
+                 $food_mes = 'ในวันนี้คุณทาน'.$food;
+                 $vitamin = 'ในวันนี้คุณทานวิตามินไปหรือยังคะ?';
+                 $replyToken = $event['replyToken'];
+                 // $messages = [
+                 //                'type' => 'template',
+                 //                'altText' => 'this is a confirm template',
+                 //                'template' => [
+                 //                    'type' => 'confirm',
+                 //                    'text' =>  $weight_mes ,
+                 //                    'actions' => [
+                 //                        [
+                 //                            'type' => 'message',
+                 //                            'label' => 'ถูกต้อง',
+                 //                            'text' => 'น้ำหนักถูกต้อง'
+                 //                        ],
+                 //                        [
+                 //                            'type' => 'message',
+                 //                            'label' => 'ไม่ถูกต้อง',
+                 //                            'text' => 'ไม่ถูกต้อง'
+                 //                        ],
+                 //                    ]
+                 //                 ]     
+                 //             ];   
+
+                 $messages = [
+                        'type' => 'text',
+                        'text' => $food_mes
+                      ];
+
+                 $messages2 = [
+                                'type' => 'template',
+                                'altText' => 'this is a confirm template',
+                                'template' => [
+                                    'type' => 'confirm',
+                                    'text' =>  $weight_mes ,
+                                    'actions' => [
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ทานแล้ว',
+                                            'text' => 'ทานแล้ว'
+                                        ],
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ยังไม่ทาน',
+                                            'text' => 'ยังไม่ทาน'
+                                        ]
+                                    ]
+                                 ]     
+                             ];  
+
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
+
+
+         $url = 'https://api.line.me/v2/bot/message/reply';
+         // $url2 = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         // $ch2 = curl_init($url2);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n";
+
 ########################################################################################################### 
 
 }elseif($event['message']['text'] == "Clear" ){
