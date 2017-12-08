@@ -1837,6 +1837,8 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
   }elseif (is_numeric($_msg) !== false && $seqcode == "2001"  )  {
                  $food =  $_msg;
                  $food_mes = 'ในวันนี้คุณทาน'.$food;
+                 $u = pg_escape_string($food_mes); 
+
                  $vitamin = 'ในวันนี้คุณทานวิตามินไปหรือยังคะ?';
                  $replyToken = $event['replyToken'];
                  // $messages = [
@@ -1870,7 +1872,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                 'altText' => 'this is a confirm template',
                                 'template' => [
                                     'type' => 'confirm',
-                                    'text' =>  $weight_mes ,
+                                    'text' =>  $vitamin ,
                                     'actions' => [
                                         [
                                             'type' => 'message',
@@ -1886,7 +1888,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                  ]     
                              ];  
 
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1003', $weight,'','0',NOW(),NOW())") or die(pg_errormessage()); 
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001','{$u}','','0',NOW(),NOW())") or die(pg_errormessage()); 
 
 
          $url = 'https://api.line.me/v2/bot/message/reply';
