@@ -1927,24 +1927,7 @@ $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updat
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2003', '' ,'2004','0',NOW(),NOW())") or die(pg_errormessage());
 
 #########################################################################################################################################################
-// }elseif ($event['message']['text'] == "แพ้ยา"  ) {
-//                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
-//                 while ($row = pg_fetch_row($result)) {
-//                   echo $answer = $row[0]; 
-//                 }   
 
-
-//                   // $u2 = pg_escape_string($surname);
-//                  $replyToken = $event['replyToken'];
-//                  $messages = [
-//                         'type' => 'text',
-//                         'text' => 'คุณแพ้ยาอะไรคะ?'
-//                       ];
-
-
-// // $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-// $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0025','','0027','0',NOW(),NOW())") or die(pg_errormessage());
-########################################################################################################### 
 }elseif (strpos($_msg) !== false && $seqcode == "2003"  )  {
                  $food =  $_msg;
                  $exer = 'ในวันนี้คุณออกกำลังกายโดย'.$food.'ไปนะคะ';
@@ -1980,8 +1963,8 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                  //             ];  
 
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2003','{$u}','2004','0',NOW(),NOW())") or die(pg_errormessage()); 
-$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','','{$u}','',  NOW()) ") or die(pg_errormessage());  
-//$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+//$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','','{$u}','',  NOW()) ") or die(pg_errormessage());  
+$q = pg_exec($dbconn, "UPDATE tracker SET  exercise ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 // $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage());
 
          // $url = 'https://api.line.me/v2/bot/message/reply';
