@@ -1816,21 +1816,48 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################### 
 }elseif ($event['message']['text'] == "ทานแล้ว" && $seqcode ='2001') {
-    $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($check_q)) {
+    // $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1   ");
+    //             while ($row = pg_fetch_row($check_q)) {
             
-                  echo $answer_food = $row[3];  
-                } 
-             
-    // $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
-    //         while ($row = pg_fetch_row($check)) {
-    //             echo  $p_week =  $row[0]+1;
+    //               echo $answer_food = $row[3];  
     //             } 
-    $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}',$answer_food,'','',  NOW()) ") or die(pg_errormessage());  
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage()); 
+             
+    // // $check = pg_query($dbconn,"SELECT preg_week FROM recordofpregnancy WHERE user_id = '{$user_id}' order by updated_at desc limit 1 ");
+    // //         while ($row = pg_fetch_row($check)) {
+    // //             echo  $p_week =  $row[0]+1;
+    // //             } 
+    // $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}',$answer_food,'','',  NOW()) ") or die(pg_errormessage());  
+    // $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage()); 
 
-            $replyToken = $event['replyToken'];
+    //         $replyToken = $event['replyToken'];
                             
+    //              $messages = [
+    //                             'type' => 'template',
+    //                             'altText' => 'this is a confirm template',
+    //                             'template' => [
+    //                                 'type' => 'confirm',
+    //                                 'text' =>  'วันนี้คุณออกกำลังกายไหมคะ?' ,
+    //                                 'actions' => [
+    //                                     [
+    //                                         'type' => 'message',
+    //                                         'label' => 'ออกกำลังกาย',
+    //                                         'text' => 'ออกกำลังกาย'
+    //                                     ],
+    //                                     [
+    //                                         'type' => 'message',
+    //                                         'label' => 'ไม่ได้ออกกำลังกาย',
+    //                                         'text' => 'ไม่ได้ออกกำลังกาย'
+    //                                     ]
+    //                                 ]
+    //                              ]     
+    //                          ];  
+               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($result)) {
+                  echo $answer_food = $row[0]; 
+                }  
+                 $u = pg_escape_string($_msg); 
+                 $replyToken = $event['replyToken'];
+
                  $messages = [
                                 'type' => 'template',
                                 'altText' => 'this is a confirm template',
@@ -1851,6 +1878,9 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                     ]
                                  ]     
                              ];  
+$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}',$answer_food,'','',  NOW()) ") or die(pg_errormessage());  
+//$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################################################################
 
