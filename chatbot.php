@@ -1544,30 +1544,30 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                       ];
                     }
 
-                  //   $messages4 = [
-                  //     'type' => 'template',
-                  //     'altText' => 'this is a confirm template',
-                  //     'template' => [
-                  //         'type' => 'confirm',
-                  //         'text' => $Q_send ,
-                  //         'actions' => [
-                  //             [
-                  //                 'type' => 'message',
-                  //                 'label' => 'ยืนยัน',
-                  //                 'text' => 'ยืนยัน'
-                  //             ],
-                  //             [
-                  //                 'type' => 'message',
-                  //                 'label' => 'ไม่ยืนยัน',
-                  //                 'text' => 'ไม่ยืนยัน'
-                  //             ],
-                  //         ]
-                  //     ]
-                  // ]; 
-                      $messages4 = [
-                            'type' => 'text',
-                            'text' => $Q_send
-                      ]; 
+                    $messages4 = [
+                      'type' => 'template',
+                      'altText' => 'this is a confirm template',
+                      'template' => [
+                          'type' => 'confirm',
+                          'text' => $Q_send ,
+                          'actions' => [
+                              [
+                                  'type' => 'message',
+                                  'label' => 'ยืนยัน',
+                                  'text' => 'ยืนยัน'
+                              ],
+                              [
+                                  'type' => 'message',
+                                  'label' => 'ไม่ยืนยัน',
+                                  'text' => 'ไม่ยืนยัน'
+                              ],
+                          ]
+                      ]
+                  ]; 
+                      // $messages4 = [
+                      //       'type' => 'text',
+                      //       'text' => $Q_send
+                      // ]; 
 
     $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
