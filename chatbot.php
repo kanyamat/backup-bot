@@ -1421,7 +1421,8 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                           "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนู recommend ด้านล่างได้เลยนะคะ";
                  $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนู recommend ด้านล่างได้เลยนะคะ";
                  $Q_send = "ต่อจากนี้ทางเราจะมีการส่งข้อความมาเพื่อสอบถามข้อมูลและแนะนำทุกวัน เวลา 19:00 น. หากคุณต้องการรับข้อมูลกรุณากดยืนยันด้วยค่ะ";
-                $replyToken = $event['replyToken'];
+                 
+                 $replyToken = $event['replyToken'];
   
 /*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
            
@@ -1564,10 +1565,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                           ]
                       ]
                   ]; 
-                      // $messages4 = [
-                      //       'type' => 'text',
-                      //       'text' => $Q_send
-                      // ]; 
+
 
     $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
@@ -1946,6 +1944,8 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
     $sql =pg_exec($dbconn,"DELETE FROM users_register WHERE user_id = '{$user_id}' ");
     $sql1 =pg_exec($dbconn,"DELETE FROM recordofpregnancy WHERE user_id = '{$user_id}' ");
   $sql2 =pg_exec($dbconn,"DELETE FROM sequentsteps WHERE sender_id = '{$user_id}' ");
+
+########################################################################################################### 
 }elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
     
      $replyToken = $event['replyToken'];
