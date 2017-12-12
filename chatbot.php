@@ -1878,9 +1878,9 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                     ]
                                  ]     
                              ];  
-$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','{$u}','','',  NOW()) ") or die(pg_errormessage());  
-//$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage());
+// $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','{$u}','','',  NOW()) ") or die(pg_errormessage());  
+// //$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+// $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################################################################
 
@@ -1939,8 +1939,10 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                  ]     
                              ];  
 
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001','{$u}','2002','0',NOW(),NOW())") or die(pg_errormessage()); 
-
+    // $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001','{$u}','2002','0',NOW(),NOW())") or die(pg_errormessage()); 
+$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','{$u}','','',  NOW()) ") or die(pg_errormessage());  
+//$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2001', '' ,'2002','0',NOW(),NOW())") or die(pg_errormessage());
 
          $url = 'https://api.line.me/v2/bot/message/reply';
          // $url2 = 'https://api.line.me/v2/bot/message/reply';
