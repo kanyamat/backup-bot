@@ -1421,7 +1421,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                           "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนู recommend ด้านล่างได้เลยนะคะ";
                  $rec = "หากคุณแม่ไม่ทราบว่าจะทานอะไรดีหรือออกกำลังกายแบบไหนดีสามารถกดที่เมนู recommend ด้านล่างได้เลยนะคะ";
                  $Q_send = "ต่อจากนี้ทางเราจะมีการส่งข้อความมาเพื่อสอบถามข้อมูลและแนะนำทุกวัน เวลา 19:00 น. หากคุณต้องการรับข้อมูลกรุณากดยืนยันด้วยค่ะ"
-                  $replyToken = $event['replyToken'];
+                $replyToken = $event['replyToken'];
   
 /*ตั้งครรภ์ในช่วงไตรมาสที่ 2 และ 3 ให้บวกจำนวณแคลเพิ่มอีก300    */               
            
@@ -1544,27 +1544,30 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                       ];
                     }
 
-                    $messages4 = [
-                      'type' => 'template',
-                      'altText' => 'this is a confirm template',
-                      'template' => [
-                          'type' => 'confirm',
-                          'text' => $Q_send ,
-                          'actions' => [
-                              [
-                                  'type' => 'message',
-                                  'label' => 'ยืนยัน',
-                                  'text' => 'ยืนยัน'
-                              ],
-                              [
-                                  'type' => 'message',
-                                  'label' => 'ไม่ยืนยัน',
-                                  'text' => 'ไม่ยืนยัน'
-                              ],
-                          ]
-                      ]
-                  ]; 
-                      
+                  //   $messages4 = [
+                  //     'type' => 'template',
+                  //     'altText' => 'this is a confirm template',
+                  //     'template' => [
+                  //         'type' => 'confirm',
+                  //         'text' => $Q_send ,
+                  //         'actions' => [
+                  //             [
+                  //                 'type' => 'message',
+                  //                 'label' => 'ยืนยัน',
+                  //                 'text' => 'ยืนยัน'
+                  //             ],
+                  //             [
+                  //                 'type' => 'message',
+                  //                 'label' => 'ไม่ยืนยัน',
+                  //                 'text' => 'ไม่ยืนยัน'
+                  //             ],
+                  //         ]
+                  //     ]
+                  // ]; 
+                      $messages4 = [
+                            'type' => 'text',
+                            'text' => $Q_send
+                      ]; 
     $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
           'replyToken' => $replyToken,
