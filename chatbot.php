@@ -1867,12 +1867,12 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                     'actions' => [
                                         [
                                             'type' => 'message',
-                                            'label' => 'ออกกำลังกาย',
+                                            'label' => 'ออกก',
                                             'text' => 'ออกกำลังกาย'
                                         ],
                                         [
                                             'type' => 'message',
-                                            'label' => 'ไม่ได้ออกกำลังกาย',
+                                            'label' => 'ไม่ออก',
                                             'text' => 'ไม่ได้ออกกำลังกาย'
                                         ]
                                     ]
