@@ -1359,11 +1359,31 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                         'type' => 'text',
                         'text' => 'ไว้โอกาสหน้าให้เราได้เป็นผู้ช่วยของคุณนะคะ^^'
                       ];
-
+                 $messages2 = [
+                        'type' => 'text',
+                        'text' => 'หากคุณต้องการผู้ช่วยในภายหลัง สามารถพิมพ์คำว่า "ต้องการผู้ช่วย" ได้เลยนะคะ'
+                      ];
 
 $q = pg_exec($dbconn, "UPDATE users_register SET status = '0' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 //$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0025','','0027','0',NOW(),NOW())") or die(pg_errormessage());
-####################
+
+    $url = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n";
 ########################################################################################################################################################
 
 }elseif ($event['message']['text'] == "หนัก" || $event['message']['text'] == "ปานกลาง" || $event['message']['text'] == "เบา" ) {
