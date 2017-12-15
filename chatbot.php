@@ -588,7 +588,7 @@ switch ($month) {
 
 
 ########################################################################################################################################################
- }elseif (/*strlen($_msg) == 5*/strpos($_msg) !== false && $seqcode == "2015") {
+  }elseif (/*strlen($_msg) == 5*/strpos($_msg) !== false && $seqcode == "2015") {
                 
                  $pieces = explode(" ", $_msg);
                  $date   = str_replace("","",$pieces[0]);
