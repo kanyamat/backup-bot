@@ -442,7 +442,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-  }elseif (strlen($_msg) == 5 && $seqcode == "1015") {
+  }elseif (/*strlen($_msg) == 5*/strpos($_msg) !== false && $seqcode == "1015") {
 
 
     // $birth_years =  str_replace("วันที่","", $_msg);
@@ -588,7 +588,7 @@ switch ($month) {
 
 
 ########################################################################################################################################################
- }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
+ }elseif (/*strlen($_msg) == 5*/strpos($_msg) !== false && $seqcode == "2015") {
                 
                  $pieces = explode(" ", $_msg);
                  $date   = str_replace("","",$pieces[0]);
