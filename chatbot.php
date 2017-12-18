@@ -453,47 +453,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
             $today_years= date("Y") ;
             $today_month= date("m") ;
             $today_day  = date("d") ;
-switch ($month) {
-              case ($month == 'มกราคม' || $month == 'ม.ค.' || $month == 'มค' || $month == 'มกรา'):
-                  $month = '01';
-                  break;
-              case ($month == 'กุมภาพันธ์' || $month == 'ก.พ.' || $month == 'กพ'|| $month == 'กุมภา'):
-                  $month = '02';
-                  break;
-              case ($month == 'มีนาคม' || $month == 'มี.ค.'|| $month == 'มีค.'|| $month == 'มีนา'):
-                  $month = '03';
-                  break;
-              case ($month == 'เมษายน' || $month == ' เม.ย.'|| $month == 'เมย'|| $month == 'เมษา'):
-                  $month = '04';
-                  break;
-              case ($month == 'พฤษภาคม' || $month == ' พ.ค.'|| $month == 'พค'|| $month == 'พฤษภา'):
-                  $month = '05';
-                  break;
-              case ($month == 'มิถุนายน' || $month == 'มิ.ย.'|| $month == 'มิย'|| $month == 'มิถุนา'):
-                  $month = '06';
-                  break;
-              case ($month == 'กรกฎาคม' || $month == 'ก.ค.'|| $month == 'กค'|| $month == 'กรกฎา'):
-                  $month = '07';
-                  break;
-              case ($month == 'สิงหาคม' || $month == 'ส.ค.'|| $month == 'สค'|| $month == 'สิงหา'):
-                  $month = '08';
-                  break;
-              case ($month == 'กันยายน' || $month == 'ก.ย.'|| $month == 'กย'|| $month == 'กันยา'):
-                  $month = '09';
-                  break;
-              case ($month == 'ตุลาคม' || $month == 'ต.ค.'|| $month == 'ตค'|| $month == 'ตุลา'):
-                  $month = '10';
-                  break;
-              case ($month == 'พฤศจิกายน' || $month == 'พ.ย.'|| $month == 'พย'|| $month == 'พฤศจิกา'):
-                  $month = '11';
-                  break;
-              case ($month == 'ธันวาคม' || $month == 'ธ.ค.'|| $month == 'ธค'|| $month == 'ธันวา'):
-                  $month = '12';
-                  break;   
-               default:
-                   $month = '00';
-                   break;   
-   }           
+
             if(($month>$today_month&& $month<=12 && $date<=31) || ($month==$today_month && $date>$today_day)  ){
                 $years = $today_years-1;
                 $strDate1 = $years."-".$month."-".$date;
@@ -596,47 +556,7 @@ switch ($month) {
                  $today_years= date("Y") ;
                  $today_month= date("m") ;
                  $today_day  = date("d") ;
-switch ($month) {
-              case ($month == 'มกราคม' || $month == 'ม.ค.' || $month == 'มค' || $month == 'มกรา'):
-                  $month = '01';
-                  break;
-              case ($month == 'กุมภาพันธ์' || $month == 'ก.พ.' || $month == 'กพ'|| $month == 'กุมภา'):
-                  $month = '02';
-                  break;
-              case ($month == 'มีนาคม' || $month == 'มี.ค.'|| $month == 'มีค.'|| $month == 'มีนา'):
-                  $month = '03';
-                  break;
-              case ($month == 'เมษายน' || $month == ' เม.ย.'|| $month == 'เมย'|| $month == 'เมษา'):
-                  $month = '04';
-                  break;
-              case ($month == 'พฤษภาคม' || $month == ' พ.ค.'|| $month == 'พค'|| $month == 'พฤษภา'):
-                  $month = '05';
-                  break;
-              case ($month == 'มิถุนายน' || $month == 'มิ.ย.'|| $month == 'มิย'|| $month == 'มิถุนา'):
-                  $month = '06';
-                  break;
-              case ($month == 'กรกฎาคม' || $month == 'ก.ค.'|| $month == 'กค'|| $month == 'กรกฎา'):
-                  $month = '07';
-                  break;
-              case ($month == 'สิงหาคม' || $month == 'ส.ค.'|| $month == 'สค'|| $month == 'สิงหา'):
-                  $month = '08';
-                  break;
-              case ($month == 'กันยายน' || $month == 'ก.ย.'|| $month == 'กย'|| $month == 'กันยา'):
-                  $month = '09';
-                  break;
-              case ($month == 'ตุลาคม' || $month == 'ต.ค.'|| $month == 'ตค'|| $month == 'ตุลา'):
-                  $month = '10';
-                  break;
-              case ($month == 'พฤศจิกายน' || $month == 'พ.ย.'|| $month == 'พย'|| $month == 'พฤศจิกา'):
-                  $month = '11';
-                  break;
-              case ($month == 'ธันวาคม' || $month == 'ธ.ค.'|| $month == 'ธค'|| $month == 'ธันวา'):
-                  $month = '12';
-                  break;   
-               default:
-                   $month = '00';
-                   break;   
-   }           
+
                  if( $month < $today_month && $month<=12 && $date<=31){
                  $years = $today_years+1;
                  $strDate1 = $years."-".$month."-".$date;
