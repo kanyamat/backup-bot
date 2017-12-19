@@ -1404,7 +1404,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET status = '0' WHERE user_id = '{
 
 
 $q = pg_exec($dbconn, "UPDATE users_register SET status = '1' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-$q1 = pg_exec($dbconn, "INSERT INTO auto_reply(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0025','','0027','0',NOW(),NOW())") or die(pg_errormessage());
+$q1 = pg_exec($dbconn, "INSERT INTO auto_reply(user_id,auto_week,auto_day,created_at,updated_at )VALUES('{$user_id}','1','1',NOW(),NOW())") or die(pg_errormessage());
 
 
 ########################################################################################################################################################
@@ -2152,7 +2152,7 @@ $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updat
 // // //$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 // $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2003', '' ,'2004','0',NOW(),NOW())") or die(pg_errormessage());
 
-$q = pg_exec($dbconn, "UPDATE auto_reply SET auto_day ='1' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+$q = pg_exec($dbconn, "UPDATE auto_reply SET auto_day ='0' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 ########################################################################################################### 
 }elseif($event['message']['text'] == "Clear" ){
       $replyToken = $event['replyToken'];
