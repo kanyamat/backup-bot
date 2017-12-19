@@ -80,9 +80,9 @@ if (!is_null($events['events'])) {
     $sql =pg_exec($dbconn,"DELETE FROM users_register WHERE user_id = '{$user_id}' ");
     $sql1 =pg_exec($dbconn,"DELETE FROM recordofpregnancy WHERE user_id = '{$user_id}' ");
     $sql2 =pg_exec($dbconn,"DELETE FROM sequentsteps WHERE sender_id = '{$user_id}' ");
-    $sql3 =pg_exec($dbconn,"DELETE FROM tracker WHERE sender_id = '{$user_id}' ");
+    $sql3 =pg_exec($dbconn,"DELETE FROM tracker WHERE user_id = '{$user_id}' ");
     $sql4 =pg_exec($dbconn,"DELETE FROM auto_reply WHERE sender_id = '{$user_id}' ");
-    
+
 #################################### ผู้ใช้เลือกสนใจ #################################### 
   }elseif ($event['message']['text'] == "สนใจ" && $seqcode == "0004"  ) {
                $result = pg_query($dbconn,"SELECT seqcode,question FROM sequents WHERE seqcode = '0005'");
