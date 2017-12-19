@@ -1373,7 +1373,7 @@ $des_preg = pg_query($dbconn,"SELECT  descript,img FROM pregnants WHERE  week = 
                       ];
                  $messages2 = [
                         'type' => 'text',
-                        'text' => 'หากคุณต้องการผู้ช่วยในภายหลัง สามารถพิมพ์คำว่า "ต้องการผู้ช่วย" ได้เลยนะคะ'
+                        'text' => 'หากคุณต้องการรับข้อความในภายหลัง สามารถพิมพ์คำว่า "ยืนยัน" ได้เลยนะคะ'
                       ];
 
 $q = pg_exec($dbconn, "UPDATE users_register SET status = '0' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
