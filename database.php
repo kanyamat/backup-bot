@@ -122,6 +122,7 @@ if (!$dbconn) {
 
 $sql="CREATE TABLE auto_reply(
 id SERIAL,
+user_id  varchar(50),
 auto_week integer,
 auto_day integer,
 created_at timestamp,
