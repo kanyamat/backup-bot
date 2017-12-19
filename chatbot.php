@@ -69,7 +69,20 @@ if (!is_null($events['events'])) {
  $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0004','','0005','0',NOW(),NOW())") or die(pg_errormessage());
 
                    
-
+########################################################################################################### 
+}elseif($event['message']['text'] == "Clear" ){
+      $replyToken = $event['replyToken'];
+      $text = "cleared!";
+      $messages = [
+          'type' => 'text',
+          'text' => $text
+        ]; 
+    $sql =pg_exec($dbconn,"DELETE FROM users_register WHERE user_id = '{$user_id}' ");
+    $sql1 =pg_exec($dbconn,"DELETE FROM recordofpregnancy WHERE user_id = '{$user_id}' ");
+    $sql2 =pg_exec($dbconn,"DELETE FROM sequentsteps WHERE sender_id = '{$user_id}' ");
+    $sql3 =pg_exec($dbconn,"DELETE FROM tracker WHERE sender_id = '{$user_id}' ");
+    $sql4 =pg_exec($dbconn,"DELETE FROM auto_reply WHERE sender_id = '{$user_id}' ");
+    
 #################################### ผู้ใช้เลือกสนใจ #################################### 
   }elseif ($event['message']['text'] == "สนใจ" && $seqcode == "0004"  ) {
                $result = pg_query($dbconn,"SELECT seqcode,question FROM sequents WHERE seqcode = '0005'");
@@ -93,14 +106,14 @@ if (!is_null($events['events'])) {
                         'type' => 'text',
                         'text' => 'ไว้โอกาสหน้าให้เราได้เป็นผู้ช่วยของคุณนะคะ:) หากคุณสนใจในภายหลังให้พิมพ์ว่า"ต้องการผู้ช่วย"'
                       ];          
-  
+########################################################################################################### 
   }elseif ($event['message']['text'] == "ไม่ถูกต้อง" ) {
                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
                         'text' => 'กรุณาพิมพ์ใหม่นะคะ'
                       ];  
-                    
+###########################################################################################################                    
 }elseif ($event['message']['text'] == "ชื่อถูกต้อง"  ) {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
@@ -2153,19 +2166,7 @@ $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updat
 // $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2003', '' ,'2004','0',NOW(),NOW())") or die(pg_errormessage());
 
 $q = pg_exec($dbconn, "UPDATE auto_reply SET auto_day ='0' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-########################################################################################################### 
-}elseif($event['message']['text'] == "Clear" ){
-      $replyToken = $event['replyToken'];
-      $text = "cleared!";
-      $messages = [
-          'type' => 'text',
-          'text' => $text
-        ]; 
-    $sql =pg_exec($dbconn,"DELETE FROM users_register WHERE user_id = '{$user_id}' ");
-    $sql1 =pg_exec($dbconn,"DELETE FROM recordofpregnancy WHERE user_id = '{$user_id}' ");
-    $sql2 =pg_exec($dbconn,"DELETE FROM sequentsteps WHERE sender_id = '{$user_id}' ");
-    $sql3 =pg_exec($dbconn,"DELETE FROM tracker WHERE sender_id = '{$user_id}' ");
-    $sql4 =pg_exec($dbconn,"DELETE FROM auto_reply WHERE sender_id = '{$user_id}' ");
+
 ########################################################################################################### 
 }elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
     
