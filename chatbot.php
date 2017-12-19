@@ -1850,7 +1850,25 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                                   ]
                               ]; 
 
+########################################################################################################### 
+}elseif ($event['message']['text'] == "ยกเลิกข้อความ" && $seqcode ='2003') {
 
+               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($result)) {
+                  echo $answer_food = $row[0]; 
+                }  
+               //   $u = pg_escape_string($_msg); 
+                 $replyToken = $event['replyToken'];
+ 
+                 $messages = [
+                        'type' => 'text',
+                        'text' => 'ไว้โอกาสหน้าให้เราได้เป็นผู้ช่วยของคุณนะคะ หากต้องการกลับมารับข้อความอีกครั้งให้พิมพ์คำว่า"รับข้อความ"ได้เลยค่ะ'
+                      ]; 
+// //$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','','{$u}','',  NOW()) ") or die(pg_errormessage());  
+// // //$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+// $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2003', '' ,'2004','0',NOW(),NOW())") or die(pg_errormessage());
+
+$q = pg_exec($dbconn, "UPDATE auto_reply SET auto_day ='0' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 ########################################################################################################################################################
 
 
@@ -2144,25 +2162,7 @@ $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updat
          curl_close($ch);
          echo $result . "\r\n";
 
-########################################################################################################### 
-}elseif ($event['message']['text'] == "ยกเลิกข้อความ" && $seqcode ='2003') {
 
-               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($result)) {
-                  echo $answer_food = $row[0]; 
-                }  
-               //   $u = pg_escape_string($_msg); 
-                 $replyToken = $event['replyToken'];
- 
-                 $messages = [
-                        'type' => 'text',
-                        'text' => 'ไว้โอกาสหน้าให้เราได้เป็นผู้ช่วยของคุณนะคะ หากต้องการกลับมารับข้อความอีกครั้งให้พิมพ์คำว่า"รับข้อความ"ได้เลยค่ะ'
-                      ]; 
-// //$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','','{$u}','',  NOW()) ") or die(pg_errormessage());  
-// // //$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-// $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2003', '' ,'2004','0',NOW(),NOW())") or die(pg_errormessage());
-
-$q = pg_exec($dbconn, "UPDATE auto_reply SET auto_day ='0' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 
 ########################################################################################################### 
 }elseif ($event['type'] == 'message' && $event['message']['type'] == 'text'){
