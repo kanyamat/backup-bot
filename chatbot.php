@@ -1885,9 +1885,52 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                         'type' => 'text',
                         'text' => 'อย่าลืมทานวิตามินเพื่อทารกในครรภ์นะคะ:)'
                       ]; 
+
+
+                 $messages2 = [
+                                'type' => 'template',
+                                'altText' => 'this is a confirm template',
+                                'template' => [
+                                    'type' => 'confirm',
+                                    'text' =>  'วันนี้คุณออกกำลังกายไหมคะ?' ,
+                                    'actions' => [
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ออก',
+                                            'text' => 'ออกกำลังกาย'
+                                        ],
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ไม่ออก',
+                                            'text' => 'ไม่ได้ออกกำลังกาย'
+                                        ]
+                                    ]
+                                 ]     
+                             ];       
 //$q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updated_at )VALUES('{$user_id}','','{$u}','',  NOW()) ") or die(pg_errormessage());  
 // //$q = pg_exec($dbconn, "UPDATE users_register SET  history_medicine ='{$u}' WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2002', '' ,'2003','0',NOW(),NOW())") or die(pg_errormessage());
+
+         $url = 'https://api.line.me/v2/bot/message/reply';
+         // $url2 = 'https://api.line.me/v2/bot/message/reply';
+         $data = [
+          'replyToken' => $replyToken,
+          'messages' => [$messages,$messages2],
+         ];
+         error_log(json_encode($data));
+         $post = json_encode($data);
+         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+         $ch = curl_init($url);
+         // $ch2 = curl_init($url2);
+         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+         $result = curl_exec($ch);
+         curl_close($ch);
+         echo $result . "\r\n";
+
 
 ########################################################################################################### 
 }elseif ($event['message']['text'] == "ทานแล้ว" && $seqcode ='2002') {
