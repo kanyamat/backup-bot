@@ -455,9 +455,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-  }elseif (strlen($_msg) == 5 !== false && $seqcode == "1015") {
-
-
+  }elseif (strlen($_msg) == 5 && $seqcode == "1015") {
     // $birth_years =  str_replace("วันที่","", $_msg);
     $pieces = explode(" ", $_msg);
     $date = str_replace("","",$pieces[0]);
@@ -466,7 +464,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
             $today_years= date("Y") ;
             $today_month= date("m") ;
             $today_day  = date("d") ;
-
+          
             if(($month>$today_month&& $month<=12 && $date<=31) || ($month==$today_month && $date>$today_day)  ){
                 $years = $today_years-1;
                 $strDate1 = $years."-".$month."-".$date;
@@ -559,9 +557,8 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
   $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1015', $week_preg ,'0017','0',NOW(),NOW())") or die(pg_errormessage());
 
 
-
 ########################################################################################################################################################
-  }elseif (strlen($_msg) == 5 !== false && $seqcode == "2015") {
+ }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
                 
                  $pieces = explode(" ", $_msg);
                  $date   = str_replace("","",$pieces[0]);
