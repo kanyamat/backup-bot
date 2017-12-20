@@ -110,7 +110,7 @@ if (!is_null($events['events'])) {
   }elseif ($event['message']['text'] == "ไม่ถูกต้อง" ) {
                  $replyToken = $event['replyToken'];
                  $messages = [
-                        'type' => 'text',5
+                        'type' => 'text',
                         'text' => 'กรุณาพิมพ์ใหม่นะคะ'
                       ];  
 ###########################################################################################################                    
