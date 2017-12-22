@@ -1208,9 +1208,6 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   echo $age = $row[3]; 
                 } 
 
-
-
-
  /*คำนวณ BMI และบอกว่าอยู่ในเกณฑ์ไหน*/               
           $height1 =$height*0.01;
                   $bmi = $weight/($height1*$height1);
