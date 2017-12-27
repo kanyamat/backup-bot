@@ -1158,12 +1158,12 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'actions' => [
                               [
                                   'type' => 'message',
-                                  'label' => 'ต้องการ',
+                                  'label' => 'ต้องการเชื่อมข้อมูล',
                                   'text' => 'ต้องการ'
                               ],
                               [
                                   'type' => 'message',
-                                  'label' => 'ไม่ต้องการ',
+                                  'label' => 'ไม่ต้องการเชื่อมข้อมูล',
                                   'text' => 'ไม่ต้องการ'
                               ],
                           ]
@@ -1184,20 +1184,36 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'actions' => [
                               [
                                   'type' => 'message',
-                                  'label' => 'ต้องการ',
+                                  'label' => 'ต้องการเชื่อมข้อมูล',
                                   'text' => 'ต้องการ'
                               ],
                               [
                                   'type' => 'message',
-                                  'label' => 'ไม่ต้องการ',
+                                  'label' => 'ไม่ต้องการเชื่อมข้อมูล',
                                   'text' => 'ไม่ต้องการ'
                               ],
                           ]
                       ]
                   ];     
 ########################################################################################################################################################
+ }elseif ($event['message']['text'] == "ไม่ต้องการเชื่อมข้อมูล" ) {
+               
+                $replyToken = $event['replyToken'];
+                  $messages = [
+                          'type' => 'text',
+                          'text' =>'หากคุณต้องการเชื่อมข้อมูลกับ ulife.info ให้กดที่ recommend ด้านล่างได้เลยนะคะ' ,
 
+                  ]; 
+########################################################################################################################################################
+ }elseif ($event['message']['text'] == "ต้องการเชื่อมข้อมูล" ) {
+               
+                $replyToken = $event['replyToken'];
+                  $messages = [
+                          'type' => 'text',
+                          'text' =>'ขออีเมลที่ลงทะเบียนกับ Ulife.info หน่อยคะ' ,
 
+                  ]; 
+########################################################################################################################################################
  }elseif ($event['message']['text'] == "ข้อมูลโภชนาการ" ) {
         $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q2)) {
