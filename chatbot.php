@@ -1232,7 +1232,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       $url ='http://128.199.147.57/api/v1/peat/register';
                       $postData = array(
                                'email' => $_msg,
-                               'line_id' => 'test2'
+                               'line_id' => 'test3'
                             );
 
                       $ch = curl_init();
@@ -1285,8 +1285,8 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
  }elseif (is_numeric($_msg) !== false &&  $seqcode == "3004"  ) {
                       $url ='http://128.199.147.57/api/v1/peat/verify';
                       $Data = array(
-                               'token' => $userMessage,
-                               'line_id' => $user
+                               'token' => $_msg,
+                               'line_id' => 'test3'
                             );
                       $ch = curl_init();
                       //set the url, number of POST vars, POST data
