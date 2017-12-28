@@ -1168,7 +1168,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           ]
                       ]
                   ];        
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','เคย','3003','0',NOW(),NOW())") or die(pg_errormessage());
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','','3003','0',NOW(),NOW())") or die(pg_errormessage());
                                   
 ########################################################################################################################################################
  }elseif ($event['message']['text'] == "ไม่เคยลงทะเบียน" ) {
@@ -1225,8 +1225,8 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       $case = 1;
                       $url ='http://128.199.147.57/api/v1/peat/register';
                       $postData = array(
-                               'email' => $userMessage,
-                               'line_id' => $user
+                               'email' => $_msg,
+                               'line_id' => $user_id
                             );
 
                       $ch = curl_init();
@@ -1245,7 +1245,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                     
                       if(strpos($result, 'errors') !== false ){
                           $userMessage  = 'ต้องเป็นemailเท่านั้น';
-                      }else{    
+                      }/*else{    
                                   $code = $re['code'];
                                   if ($code == '200'){
                                       $seqcode = '3004';
@@ -1258,7 +1258,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                   }
 
                       }
-
+*/
 
 //           $url = 'https://api.line.me/v2/bot/message/reply';
 //          $data = [
