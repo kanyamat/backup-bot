@@ -1234,11 +1234,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                'email' => $_msg,
                                'line_id' => $user_id
                             );
-                  // $messages = [
-                  //         'type' => 'text',
-                  //         'text' =>'Ulife.info หน่อยคะ' ,
 
-                  // ]; 
                       $ch = curl_init();
 
                       //set the url, number of POST vars, POST data
@@ -1292,6 +1288,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                'token' => $_msg,
                                'line_id' => $user_id
                             );
+
                       $ch = curl_init();
                       //set the url, number of POST vars, POST data
                       curl_setopt($ch,CURLOPT_URL, $url);
