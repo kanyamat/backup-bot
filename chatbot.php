@@ -1157,13 +1157,13 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'actions' => [
                               [
                                   'type' => 'message',
-                                  'label' => 'ต้องการเชื่อมข้อมูล',
-                                  'text' => 'ต้องการ'
+                                  'label' => 'ต้องการ',
+                                  'text' => 'ต้องการเชื่อมข้อมูล'
                               ],
                               [
                                   'type' => 'message',
-                                  'label' => 'ไม่ต้องการเชื่อมข้อมูล',
-                                  'text' => 'ไม่ต้องการ'
+                                  'label' => 'ไม่ต้อง',
+                                  'text' => 'ไม่ต้องการการเชื่อมข้อมูล'
                               ],
                           ]
                       ]
