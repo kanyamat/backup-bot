@@ -1232,7 +1232,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       $url ='http://128.199.147.57/api/v1/peat/register';
                       $postData = array(
                                'email' => $_msg,
-                               'line_id' => 'test'
+                               'line_id' => 'test2'
                             );
                   // $messages = [
                   //         'type' => 'text',
@@ -1291,7 +1291,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       $url ='http://128.199.147.57/api/v1/peat/verify';
                       $Data = array(
                                'token' => $_msg,
-                               'line_id' => 'test'/*$user_id*/
+                               'line_id' => 'test2'/*$user_id*/
                             );
 
                       $ch = curl_init();
