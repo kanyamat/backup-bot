@@ -1145,12 +1145,8 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3001','','3002','0',NOW(),NOW())") or die(pg_errormessage());
 
 ########################################################################################################################################################
- }elseif ($event['message']['text'] == "เคยลงทะเบียน" && $seqcode == "3002" ) {
-               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($result)) {
-                  echo $answer = $row[0];
-
-                }                 
+ }elseif ($event['message']['text'] == "เคยลงทะเบียน" ) {
+                
                 $replyToken = $event['replyToken'];
                   $messages = [
                       'type' => 'template',
@@ -1172,7 +1168,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           ]
                       ]
                   ];        
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','','3003','0',NOW(),NOW())") or die(pg_errormessage());
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','เคย','3003','0',NOW(),NOW())") or die(pg_errormessage());
                                   
 ########################################################################################################################################################
  }elseif ($event['message']['text'] == "ไม่เคยลงทะเบียน" ) {
@@ -1197,7 +1193,8 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                               ],
                           ]
                       ]
-                  ];     
+                  ]; 
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่เคย','3003','0',NOW(),NOW())") or die(pg_errormessage());    
 ########################################################################################################################################################
  }elseif ($event['message']['text'] == "ไม่ต้องการเชื่อมข้อมูล" ) {
                
@@ -1207,6 +1204,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'text' =>'หากคุณต้องการเชื่อมข้อมูลกับ ulife.info ให้กดที่ recommend ด้านล่างได้เลยนะคะ' ,
 
                   ]; 
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
  }elseif ($event['message']['text'] == "ต้องการเชื่อมข้อมูล" ) {
                
@@ -1216,6 +1214,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'text' =>'ขออีเมลที่ลงทะเบียนกับ Ulife.info หน่อยคะ' ,
 
                   ]; 
+$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
  }elseif ($event['message']['text'] == "ข้อมูลโภชนาการ" ) {
         $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
