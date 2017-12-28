@@ -1206,7 +1206,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   ]; 
     $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
- }elseif ($event['message']['text'] == "ต้องการเชื่อมข้อมูล" ) {
+ }elseif ($event['message']['text'] == "ต้องการเชื่อมข้อมูล"  ) {
                
                 $replyToken = $event['replyToken'];
                   $messages = [
@@ -1216,8 +1216,11 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   ]; 
 $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
-}elseif (strpos($_msg, '@') !== false && strpos($_msg, '.') !== false) {
-               
+}elseif (strpos($_msg, '@') !== false && strpos($_msg, '.') !== false && $seqcode == "3002" ) {
+               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($result)) {
+                  echo $answer = $row[0]; 
+                }                  
                 $replyToken = $event['replyToken'];
                       $case = 1;
                       $url ='http://128.199.147.57/api/v1/peat/register';
