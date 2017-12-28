@@ -1259,9 +1259,11 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       }else{    
                                   $code = $re['code'];
                                   if ($code == '200'){
+                                      $seqcode = '3004';
+                                      $nextseqcode = '0000';
                                     $messages = [
                                             'type' => 'text',
-                                            'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' ,
+                                            'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' 
 
                                     ]; 
                                     
@@ -1277,7 +1279,6 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                   }
 
                       }
-
 
 
 ########################################################################################################################################################
