@@ -1234,7 +1234,11 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                'email' => $_msg,
                                'line_id' => $user_id
                             );
+                  // $messages = [
+                  //         'type' => 'text',
+                  //         'text' =>'Ulife.info หน่อยคะ' ,
 
+                  // ]; 
                       $ch = curl_init();
 
                       //set the url, number of POST vars, POST data
@@ -1263,7 +1267,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                                       $nextseqcode = '0000';
                                     $messages = [
                                             'type' => 'text',
-                                            'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' 
+                                            'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' ,
 
                                     ]; 
                                     
@@ -1281,51 +1285,11 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       }
 
 
-########################################################################################################################################################
- }elseif (is_numeric($_msg) !== false &&  $seqcode == "3004"  ) {
-
-                      $url ='http://128.199.147.57/api/v1/peat/verify';
-                      $Data = array(
-                               'token' => $_msg,
-                               'line_id' => $user_id
-                            );
-
-                      $ch = curl_init();
-                      //set the url, number of POST vars, POST data
-                      curl_setopt($ch,CURLOPT_URL, $url);
-                      curl_setopt($ch,CURLOPT_POSTFIELDS, $Data);
-                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-                      //execute post
-                      $result = curl_exec($ch);
-
-                      //close connection
-                      curl_close($ch);
-                      $re = json_decode($result,true);
-                       if(strpos($result, 'errors') !== false ){
-                          $messages = [
-                                  'type' => 'text',
-                                  'text' =>'รหัสผิดพลาด' ,
-
-                          ]; 
-                        
-                      }else{    
-                                $code = $re['code'];
-                                 if ($code=='200'){
-
-                                    $messages = [
-                                            'type' => 'text',
-                                            'text' =>'ทำการเชื่อมต่อแล้ว' ,
-                                    ]; 
-                                  $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000','','0000','0',NOW(),NOW())") or die(pg_errormessage());  
-                                }else{
-                                    $userMessage  = $re['message'];
-                                }
-                                  
-                      }
-
 
 ########################################################################################################################################################
+
+
+
 
  }elseif ($event['message']['text'] == "ข้อมูลโภชนาการ" ) {
         $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
