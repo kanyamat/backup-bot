@@ -1239,36 +1239,50 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                   //         'text' =>'Ulife.info หน่อยคะ' ,
 
                   // ]; 
-                      // $ch = curl_init();
+                      $ch = curl_init();
 
-                      // //set the url, number of POST vars, POST data
-                      // curl_setopt($ch,CURLOPT_URL, $url);
-                      // curl_setopt($ch,CURLOPT_POSTFIELDS, $postData);
-                      // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                      //set the url, number of POST vars, POST data
+                      curl_setopt($ch,CURLOPT_URL, $url);
+                      curl_setopt($ch,CURLOPT_POSTFIELDS, $postData);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-                      // //execute post
-                      // $result = curl_exec($ch);
+                      //execute post
+                      $result = curl_exec($ch);
 
-                      // //close connection
-                      // curl_close($ch);
-                      // $re = json_decode($result,true);
+                      //close connection
+                      curl_close($ch);
+                      $re = json_decode($result,true);
                     
-                      // if(strpos($result, 'errors') !== false ){
-                      //     $userMessage  = 'ต้องเป็นemailเท่านั้น';
-                      // }else{    
-                      //             $code = $re['code'];
-                      //             if ($code == '200'){
-                      //                 $seqcode = '3004';
-                      //                 $nextseqcode = '0000';
-                        
-                      //                 $userMessage  = 'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน';
-                      //                 //$sequentsteps_insert =  $this->sequentsteps_update($user,$seqcode,$nextseqcode);
-                      //                 $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3004','','0000','0',NOW(),NOW())") or die(pg_errormessage());  
-                      //             }else{
-                      //                 $userMessage  = 'ไม่สามารถลงทะเบียนได้เนื่องจาก lind id หรือ email ได้ลงทะเบียนแล้ว';
-                      //             }
+                      if(strpos($result, 'errors') !== false ){
+                          $messages = [
+                                  'type' => 'text',
+                                  'text' =>'ต้องเป็นemailเท่านั้น' ,
 
-                      // }
+                          ]; 
+                   
+                      }else{    
+                                  $code = $re['code'];
+                                  if ($code == '200'){
+                                      $seqcode = '3004';
+                                      $nextseqcode = '0000';
+                                    $messages = [
+                                            'type' => 'text',
+                                            'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' ,
+
+                                    ]; 
+                                    
+                                      //$sequentsteps_insert =  $this->sequentsteps_update($user,$seqcode,$nextseqcode);
+                                      $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3004','','0000','0',NOW(),NOW())") or die(pg_errormessage());  
+                                  }else{
+                                    $messages = [
+                                            'type' => 'text',
+                                            'text' =>'ไม่สามารถลงทะเบียนได้เนื่องจาก lind id หรือ email ได้ลงทะเบียนแล้ว' ,
+
+                                    ]; 
+                                     
+                                  }
+
+                      }
 
 
 //           $url = 'https://api.line.me/v2/bot/message/reply';
