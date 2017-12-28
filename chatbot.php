@@ -1283,6 +1283,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
 
 ########################################################################################################################################################
  }elseif (is_numeric($_msg) !== false &&  $seqcode == "3004"  ) {
+                      $replyToken = $event['replyToken'];
                       $url ='http://128.199.147.57/api/v1/peat/verify';
                       $Data = array(
                                'token' => $_msg,
