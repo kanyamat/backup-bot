@@ -1216,11 +1216,14 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   ]; 
 $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3003','','0000','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
-}elseif (strpos($_msg, '@') !== false && $seqcode == "3003" ) {
-               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1 ");
+/*}elseif (strpos($_msg, '@') !== false && $seqcode == "3003" ) {*/
+}elseif (strpos($_msg) !== false && $seqcode == "3003"){
+               $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
                   echo $answer = $row[0]; 
-                }                  
+                }   
+
+                  $u = pg_escape_string($_msg);                 
                 $replyToken = $event['replyToken'];
                       // $case = 1;
                       $url ='http://128.199.147.57/api/v1/peat/register';
