@@ -975,9 +975,6 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-
-
-
  }elseif ($event['message']['text'] == "เลขประจำตัวผู้ป่วยของถูกต้อง") {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
@@ -1122,7 +1119,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                         'text'=> $manual
                                     ];
 ########################################################################################################################################################
- }elseif ($event['message']['text'] == "เชื่อมต่อกับ ulife.info" ) {
+ }elseif ($event['message']['text'] == "เชื่อมต่อกับ ulife.info" && $seqcode == "3001" ) {
                
                 $replyToken = $event['replyToken'];
                   $messages = [
@@ -1144,9 +1141,11 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                               ],
                           ]
                       ]
-                  ];        
+                  ];  
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3001','','3002','0',NOW(),NOW())") or die(pg_errormessage());
+
 ########################################################################################################################################################
- }elseif ($event['message']['text'] == "เคยลงทะเบียน" ) {
+ }elseif ($event['message']['text'] == "เคยลงทะเบียน" && $seqcode == "3002" ) {
                
                 $replyToken = $event['replyToken'];
                   $messages = [
