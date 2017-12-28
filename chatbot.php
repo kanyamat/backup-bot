@@ -1232,7 +1232,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       $url ='http://128.199.147.57/api/v1/peat/register';
                       $postData = array(
                                'email' => $_msg,
-                               'line_id' => $user_id
+                               'line_id' => 'test'
                             );
                   // $messages = [
                   //         'type' => 'text',
@@ -1263,8 +1263,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       }else{    
                                   $code = $re['code'];
                                   if ($code == '200'){
-                                      $seqcode = '3004';
-                                      $nextseqcode = '0000';
+                                     
                                     $messages = [
                                             'type' => 'text',
                                             'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' ,
