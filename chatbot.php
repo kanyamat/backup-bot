@@ -1220,7 +1220,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
 ########################################################################################################################################################
 
 /*}elseif (strpos($_msg, '@') !== false && $seqcode == "3003" ) {*/
-}elseif (strpos($_msg) !== false && $seqcode == "3003"){
+}elseif (strpos($_msg, '@') !== false && $seqcode == "3003"){
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($result)) {
                   echo $answer = $row[0]; 
@@ -1263,8 +1263,6 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       }else{    
                                   $code = $re['code'];
                                   if ($code == '200'){
-                                      $seqcode = '3004';
-                                      $nextseqcode = '0000';
                                     $messages = [
                                             'type' => 'text',
                                             'text' =>'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน' ,
@@ -1285,27 +1283,51 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                       }
 
 
-//           $url = 'https://api.line.me/v2/bot/message/reply';
-//          $data = [
-//           'replyToken' => $replyToken,
-//           'messages' => [$messages,$messages2],
-//          ];
-//          error_log(json_encode($data));
-//          $post = json_encode($data);
-//          $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-//          $ch = curl_init($url);
-//          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-//          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//          curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-//          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-//          curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-//          $result = curl_exec($ch);
-//          curl_close($ch);
-//          echo $result . "\r\n";     
+
 ########################################################################################################################################################
+ }elseif (is_numeric($_msg) !== false &&  $seqcode == "3004"  ) {
+
+                      $url ='http://128.199.147.57/api/v1/peat/verify';
+                      $Data = array(
+                               'token' => $_msg,
+                               'line_id' => $user_id
+                            );
+                      $ch = curl_init();
+                      //set the url, number of POST vars, POST data
+                      curl_setopt($ch,CURLOPT_URL, $url);
+                      curl_setopt($ch,CURLOPT_POSTFIELDS, $Data);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                      //execute post
+                      $result = curl_exec($ch);
+
+                      //close connection
+                      curl_close($ch);
+                      $re = json_decode($result,true);
+                       if(strpos($result, 'errors') !== false ){
+                          $messages = [
+                                  'type' => 'text',
+                                  'text' =>'รหัสผิดพลาด' ,
+
+                          ]; 
+                        
+                      }else{    
+                                $code = $re['code'];
+                                 if ($code=='200'){
+
+                                    $messages = [
+                                            'type' => 'text',
+                                            'text' =>'ทำการเชื่อมต่อแล้ว' ,
+                                    ]; 
+                                  $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0000','','0000','0',NOW(),NOW())") or die(pg_errormessage());  
+                                }else{
+                                    $userMessage  = $re['message'];
+                                }
+                                  
+                      }
 
 
-
+########################################################################################################################################################
 
  }elseif ($event['message']['text'] == "ข้อมูลโภชนาการ" ) {
         $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
