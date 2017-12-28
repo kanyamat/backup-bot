@@ -1162,7 +1162,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                               ],
                               [
                                   'type' => 'message',
-                                  'label' => 'ไม่ต้อง',
+                                  'label' => 'ไม่ต้องการ',
                                   'text' => 'ไม่ต้องการการเชื่อมข้อมูล'
                               ],
                           ]
@@ -1216,6 +1216,70 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                   ]; 
 $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
+}elseif (strpos($_msg, '@') !== false && strpos($_msg, '.') !== false) {
+               
+                $replyToken = $event['replyToken'];
+                      $case = 1;
+                      $url ='http://128.199.147.57/api/v1/peat/register';
+                      $postData = array(
+                               'email' => $userMessage,
+                               'line_id' => $user
+                            );
+
+                      $ch = curl_init();
+
+                      //set the url, number of POST vars, POST data
+                      curl_setopt($ch,CURLOPT_URL, $url);
+                      curl_setopt($ch,CURLOPT_POSTFIELDS, $postData);
+                      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                      //execute post
+                      $result = curl_exec($ch);
+
+                      //close connection
+                      curl_close($ch);
+                      $re = json_decode($result,true);
+                    
+                      if(strpos($result, 'errors') !== false ){
+                          $userMessage  = 'ต้องเป็นemailเท่านั้น';
+                      }else{    
+                                  $code = $re['code'];
+                                  if ($code == '200'){
+                                      $seqcode = '3004';
+                                      $nextseqcode = '0000';
+                        
+                                      $userMessage  = 'ไปยังอีเมลเพื่อรับรหัส เมื่อรับรหัสแล้วโปรดกรอกเพื่อยืนยัน';
+                                      $sequentsteps_insert =  $this->sequentsteps_update($user,$seqcode,$nextseqcode);
+                                  }else{
+                                      $userMessage  = 'ไม่สามารถลงทะเบียนได้เนื่องจาก lind id หรือ email ได้ลงทะเบียนแล้ว';
+                                  }
+
+                      }
+
+
+//           $url = 'https://api.line.me/v2/bot/message/reply';
+//          $data = [
+//           'replyToken' => $replyToken,
+//           'messages' => [$messages,$messages2],
+//          ];
+//          error_log(json_encode($data));
+//          $post = json_encode($data);
+//          $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+//          $ch = curl_init($url);
+//          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//          curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+//          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+//          curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//          $result = curl_exec($ch);
+//          curl_close($ch);
+//          echo $result . "\r\n";  
+// ########################################################################################################################################################
+
+
+
+
+
  }elseif ($event['message']['text'] == "ข้อมูลโภชนาการ" ) {
         $check_q2 = pg_query($dbconn,"SELECT user_weight, user_height, preg_week,user_age FROM users_register WHERE user_id = '{$user_id}' order by updated_at desc limit 1   ");
                 while ($row = pg_fetch_row($check_q2)) {
