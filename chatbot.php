@@ -1214,7 +1214,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           'text' =>'ขออีเมลที่ลงทะเบียนกับ Ulife.info หน่อยคะ' ,
 
                   ]; 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
+$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','','3003','0',NOW(),NOW())") or die(pg_errormessage());  
 ########################################################################################################################################################
 }elseif (strpos($_msg) !== false && $seqcode == "3002" ) {
                $result = pg_query($dbconn,"SELECT answer FROM sequentsteps  WHERE sender_id = '{$user_id}'  order by updated_at desc limit 1   ");
