@@ -1194,17 +1194,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                           ]
                       ]
                   ]; 
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่เคย','3003','0',NOW(),NOW())") or die(pg_errormessage());    
-########################################################################################################################################################
- }elseif ($event['message']['text'] == "ไม่ต้องการเชื่อมข้อมูล" && $seqcode == "3002" ) {
-               
-                $replyToken = $event['replyToken'];
-                  $messages = [
-                          'type' => 'text',
-                          'text' =>'หากคุณต้องการเชื่อมข้อมูลกับ ulife.info ให้กดที่ recommend ด้านล่างได้เลยนะคะ' ,
-
-                  ]; 
-    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่เคย','3003','0',NOW(),NOW())") or die(pg_errormessage()); 
 ########################################################################################################################################################
 
 /*}elseif (strpos($_msg, '@') !== false && $seqcode == "3003" ) {*/
@@ -1274,7 +1264,18 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
 //          curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 //          $result = curl_exec($ch);
 //          curl_close($ch);
-//          echo $result . "\r\n";  
+//          echo $result . "\r\n";     
+########################################################################################################################################################
+ }elseif ($event['message']['text'] == "ไม่ต้องการเชื่อมข้อมูล" && $seqcode == "3002" ) {
+               
+                $replyToken = $event['replyToken'];
+                  $messages = [
+                          'type' => 'text',
+                          'text' =>'หากคุณต้องการเชื่อมข้อมูลกับ ulife.info ให้กดที่ recommend ด้านล่างได้เลยนะคะ' ,
+
+                  ]; 
+    $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','3002','ไม่ต้องการเชื่อมข้อมูล','3003','0',NOW(),NOW())") or die(pg_errormessage());  
+
 // ########################################################################################################################################################
  }elseif ($event['message']['text'] == "ต้องการเชื่อมข้อมูล" && $seqcode == "3002" ) {
                
