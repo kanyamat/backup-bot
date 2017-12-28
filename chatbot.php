@@ -1214,7 +1214,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                       //       );
                   $messages = [
                           'type' => 'text',
-                          'text' =>'ขออีเมลที่ลงทะเบียนกับ Ulife.info หน่อยคะ' ,
+                          'text' =>'Ulife.info หน่อยคะ' ,
 
                   ]; 
                       // $ch = curl_init();
