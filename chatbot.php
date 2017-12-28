@@ -1119,7 +1119,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET hospital_number = $answer WHERE
                                         'text'=> $manual
                                     ];
 ########################################################################################################################################################
- }elseif ($event['message']['text'] == "เชื่อมต่อกับ ulife.info" && $seqcode == "3001" ) {
+ }elseif ($event['message']['text'] == "เชื่อมต่อกับ ulife.info"  ) {
                
                 $replyToken = $event['replyToken'];
                   $messages = [
