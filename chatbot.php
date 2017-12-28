@@ -1223,7 +1223,7 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
                 }                  
                 $replyToken = $event['replyToken'];
                       // $case = 1;
-                      // $url ='http://128.199.147.57/api/v1/peat/register';
+                      $url ='http://128.199.147.57/api/v1/peat/register';
                       // $postData = array(
                       //          'email' => $_msg,
                       //          'line_id' => $user_id
