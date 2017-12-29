@@ -463,15 +463,15 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
           $date = str_replace("","",$pieces[0]);
           $month  = str_replace("","",$pieces[1]);
     }elseif (strpos($_msg,'-')!== false) {
-          $pieces = explode("-", $userMessage);
+          $pieces = explode("-", $_msg);
           $date   = str_replace("","",$pieces[0]);
           $month  = str_replace("","",$pieces[1]);
     }elseif (strpos($_msg,'/')!== false) {
-          $pieces = explode("/", $userMessage);
+          $pieces = explode("/", $_msg);
           $date   = str_replace("","",$pieces[0]);
           $month  = str_replace("","",$pieces[1]);
     }elseif (strpos($_msg,':')!== false) {
-          $pieces = explode(":", $userMessage);
+          $pieces = explode(":", $_msg);
           $date   = str_replace("","",$pieces[0]);
           $month  = str_replace("","",$pieces[1]);
     }
