@@ -455,187 +455,91 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-  }elseif (/*strlen($_msg) == 5 &&*/strpos($_msg) !== false && $seqcode == "1015") {
- 
+  }elseif (/*strlen($_msg) == 5 &&*/strpos($_msg) !== false && $seqcode == "1015" || $seqcode == "1015") {
+  
+    $_msg = pregnancy_calculator($user_id,$_msg,$seqcode);
 
-    $pieces = explode(" ", $_msg);
-    $date = str_replace("","",$pieces[0]);
-    $month  = str_replace("","",$pieces[1]);
+    // $pieces = explode(" ", $_msg);
+    // $date = str_replace("","",$pieces[0]);
+    // $month  = str_replace("","",$pieces[1]);
    
-            $today_years= date("Y") ;
-            $today_month= date("m") ;
-            $today_day  = date("d") ;
-
-//         if(strpos($_msg, '/') !== false ){
-//                           $pieces = explode("/", $_msg);
-//                           $date   = str_replace("","",$pieces[0]);
-//                           $month  = str_replace("","",$pieces[1]);
-//                           $today_years= date("Y") ;
-//                           $today_month= date("m") ;
-//                           $today_day  = date("d") ;
-
-//                         if(is_numeric($month) == false){
-//                             $month = check_month($month);
-//                           }
-//                         }elseif(strpos($_msg, ':') !== false ){
-//                           $pieces = explode(":", $_msg);
-//                           $date   = str_replace("","",$pieces[0]);
-//                           $month  = str_replace("","",$pieces[1]);
-//                           $today_years= date("Y") ;
-//                           $today_month= date("m") ;
-//                           $today_day  = date("d") ;
-//                         if(is_numeric($month) == false){
-//                             $month = check_month($month);
-//                           }
-//                         }elseif(strpos($_msg, '-') !== false ){
-//                           $pieces = explode("-", $_msg);
-//                           $date   = str_replace("","",$pieces[0]);
-//                           $month  = str_replace("","",$pieces[1]);
-//                           $today_years= date("Y") ;
-//                           $today_month= date("m") ;
-//                           $today_day  = date("d") ;
-                 
-//                           if(is_numeric($month) == false){
-//                             $month = check_month($month);
-//                           }
-//                         }elseif(strpos($_msg, ' ') !== false ){
-//                           $pieces = explode(" ", $_msg);
-//                           $date   = str_replace("","",$pieces[0]);
-//                           $month  = str_replace("","",$pieces[1]);
-//                           $today_years= date("Y") ;
-//                           $today_month= date("m") ;
-//                           $today_day  = date("d") ;
-
-// /*                if(is_numeric($month) == false){
-//                     $month = $this->check_month($month);
-//                      if($month=='00'){
-//                       $textReplyMessage = 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง';
-//                       return   $textReplyMessage;
-//                      }
-//                   }*/
-                  
-//                 }
-
-
-
-        switch ($month) {
-                      case ($month == 'มกราคม' || $month == 'ม.ค.' || $month == 'มค' || $month == 'มกรา'):
-                          $month = '01';
-                          break;
-                      case ($month == 'กุมภาพันธ์' || $month == 'ก.พ.' || $month == 'กพ'|| $month == 'กุมภา'):
-                          $month = '02';
-                          break;
-                      case ($month == 'มีนาคม' || $month == 'มี.ค.'|| $month == 'มีค.'|| $month == 'มีนา'):
-                          $month = '03';
-                          break;
-                      case ($month == 'เมษายน' || $month == ' เม.ย.'|| $month == 'เมย'|| $month == 'เมษา'):
-                          $month = '04';
-                          break;
-                      case ($month == 'พฤษภาคม' || $month == ' พ.ค.'|| $month == 'พค'|| $month == 'พฤษภา'):
-                          $month = '05';
-                          break;
-                      case ($month == 'มิถุนายน' || $month == 'มิ.ย.'|| $month == 'มิย'|| $month == 'มิถุนา'):
-                          $month = '06';
-                          break;
-                      case ($month == 'กรกฎาคม' || $month == 'ก.ค.'|| $month == 'กค'|| $month == 'กรกฎา'):
-                          $month = '07';
-                          break;
-                      case ($month == 'สิงหาคม' || $month == 'ส.ค.'|| $month == 'สค'|| $month == 'สิงหา'):
-                          $month = '08';
-                          break;
-                      case ($month == 'กันยายน' || $month == 'ก.ย.'|| $month == 'กย'|| $month == 'กันยา'):
-                          $month = '09';
-                          break;
-                      case ($month == 'ตุลาคม' || $month == 'ต.ค.'|| $month == 'ตค'|| $month == 'ตุลา'):
-                          $month = '10';
-                          break;
-                      case ($month == 'พฤศจิกายน' || $month == 'พ.ย.'|| $month == 'พย'|| $month == 'พฤศจิกา'):
-                          $month = '11';
-                          break;
-                      case ($month == 'ธันวาคม' || $month == 'ธ.ค.'|| $month == 'ธค'|| $month == 'ธันวา'):
-                          $month = '12';
-                          break;   
-                       default:
-                           $month = '00';
-                           break;   
-
-
-           }
-            return  $month;
+    //         $today_years= date("Y") ;
+    //         $today_month= date("m") ;
+    //         $today_day  = date("d") ;
 
 
 
         
-            if(($month>$today_month&& $month<=12 && $date<=31) || ($month==$today_month && $date>$today_day)  ){
-                $years = $today_years-1;
-                $strDate1 = $years."-".$month."-".$date;
-                $strDate2=date("Y-m-d");
+    //         if(($month>$today_month&& $month<=12 && $date<=31) || ($month==$today_month && $date>$today_day)  ){
+    //             $years = $today_years-1;
+    //             $strDate1 = $years."-".$month."-".$date;
+    //             $strDate2=date("Y-m-d");
                 
-                $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );
-                $week = $date_pre/7;
-                $week_preg = number_format($week);
-                $day = $date_pre%7;
-                $day_preg = number_format($day);
-                $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
-                      $replyToken = $event['replyToken'];
-                      $messages = [
-                          'type' => 'template',
-                          'altText' => 'this is a confirm template',
-                          'template' => [
-                              'type' => 'confirm',
-                              'text' =>  $age_pre.'ใช่ไหมคะ?' ,
-                              'actions' => [
-                                  [
-                                      'type' => 'message',
-                                      'label' => 'ใช่',
-                                      'text' => 'อายุครรภ์ถูกต้อง'
-                                  ],
-                                  [
-                                      'type' => 'message',
-                                      'label' => 'ไม่ใช่',
-                                      'text' => 'ไม่ถูกต้อง'
-                                  ],
-                              ]
-                          ]
-                      ];   
+    //             $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );
+    //             $week = $date_pre/7;
+    //             $week_preg = number_format($week);
+    //             $day = $date_pre%7;
+    //             $day_preg = number_format($day);
+    //             $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+    //                   $replyToken = $event['replyToken'];
+    //                   $messages = [
+    //                       'type' => 'template',
+    //                       'altText' => 'this is a confirm template',
+    //                       'template' => [
+    //                           'type' => 'confirm',
+    //                           'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+    //                           'actions' => [
+    //                               [
+    //                                   'type' => 'message',
+    //                                   'label' => 'ใช่',
+    //                                   'text' => 'อายุครรภ์ถูกต้อง'
+    //                               ],
+    //                               [
+    //                                   'type' => 'message',
+    //                                   'label' => 'ไม่ใช่',
+    //                                   'text' => 'ไม่ถูกต้อง'
+    //                               ],
+    //                           ]
+    //                       ]
+    //                   ];   
             
-            }elseif($month<$today_month && $month<=12 && $date<=31){
-                $strDate1 = $today_years."-".$month."-".$date;
-                $strDate2=date("Y-m-d");
-                $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );;
-                $week = $date_pre/7;
-                $week_preg = number_format($week);
-                $day = $date_pre%7;
-                $day_preg = number_format($day);
-                $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
-                    $replyToken = $event['replyToken'];
-                    $messages = [
-                        'type' => 'template',
-                        'altText' => 'this is a confirm template',
-                        'template' => [
-                            'type' => 'confirm',
-                            'text' =>  $age_pre.'ใช่ไหมคะ?' ,
-                            'actions' => [
-                                [
-                                    'type' => 'message',
-                                    'label' => 'ใช่',
-                                    'text' => 'อายุครรภ์ถูกต้อง'
-                                ],
-                                [
-                                    'type' => 'message',
-                                    'label' => 'ไม่ใช่',
-                                    'text' => 'ไม่ถูกต้อง'
-                                ],
-                            ]
-                        ]
-                    ];   
-            }else{
-               $replyToken = $event['replyToken'];
-                 $messages = [
-                        'type' => 'text',
-                        'text' => 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง'
-                      ];
-            }
+    //         }elseif($month<$today_month && $month<=12 && $date<=31){
+    //             $strDate1 = $today_years."-".$month."-".$date;
+    //             $strDate2=date("Y-m-d");
+    //             $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );;
+    //             $week = $date_pre/7;
+    //             $week_preg = number_format($week);
+    //             $day = $date_pre%7;
+    //             $day_preg = number_format($day);
+    //             $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+    //                 $replyToken = $event['replyToken'];
+    //                 $messages = [
+    //                     'type' => 'template',
+    //                     'altText' => 'this is a confirm template',
+    //                     'template' => [
+    //                         'type' => 'confirm',
+    //                         'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+    //                         'actions' => [
+    //                             [
+    //                                 'type' => 'message',
+    //                                 'label' => 'ใช่',
+    //                                 'text' => 'อายุครรภ์ถูกต้อง'
+    //                             ],
+    //                             [
+    //                                 'type' => 'message',
+    //                                 'label' => 'ไม่ใช่',
+    //                                 'text' => 'ไม่ถูกต้อง'
+    //                             ],
+    //                         ]
+    //                     ]
+    //                 ];   
+    //         }else{
+    //            $replyToken = $event['replyToken'];
+    //              $messages = [
+    //                     'type' => 'text',
+    //                     'text' => 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง'
+    //                   ];
+    //         }
   
       $url = 'https://api.line.me/v2/bot/message/reply';
          $data = [
@@ -659,183 +563,182 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 
 ########################################################################################################################################################
- }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
+//  }elseif (strlen($_msg) == 5 && $seqcode == "2015") {
                 
-                 $pieces = explode(" ", $_msg);
-                 $date   = str_replace("","",$pieces[0]);
-                 $month  = str_replace("","",$pieces[1]);
-                 $today_years= date("Y") ;
-                 $today_month= date("m") ;
-                 $today_day  = date("d") ;
+//                  $pieces = explode(" ", $_msg);
+//                  $date   = str_replace("","",$pieces[0]);
+//                  $month  = str_replace("","",$pieces[1]);
+//                  $today_years= date("Y") ;
+//                  $today_month= date("m") ;
+//                  $today_day  = date("d") ;
 
-                 if( $month < $today_month && $month<=12 && $date<=31){
-                 $years = $today_years+1;
-                 $strDate1 = $years."-".$month."-".$date;
-                 $strDate2=date("Y-m-d");
+//                  if( $month < $today_month && $month<=12 && $date<=31){
+//                  $years = $today_years+1;
+//                  $strDate1 = $years."-".$month."-".$date;
+//                  $strDate2=date("Y-m-d");
                 
-                 $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
-                 $week = $date_pre/7;
-                 $week_preg =floor($week);
-                 $day = $date_pre%7;
-                 $day_preg = number_format($day);
-                 $m = 39-$week_preg  ;
-                 $d = 7-$day_preg;
+//                  $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
+//                  $week = $date_pre/7;
+//                  $week_preg =floor($week);
+//                  $day = $date_pre%7;
+//                  $day_preg = number_format($day);
+//                  $m = 39-$week_preg  ;
+//                  $d = 7-$day_preg;
              
-                 switch ($d){
-                 case '7':
-                  $w_preg = $m + 1;
+//                  switch ($d){
+//                  case '7':
+//                   $w_preg = $m + 1;
 
-                $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์' ;
-                $replyToken = $event['replyToken'];
+//                 $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์' ;
+//                 $replyToken = $event['replyToken'];
                     
-                    $messages = [
-                        'type' => 'template',
-                        'altText' => 'this is a confirm template',
-                        'template' => [
-                            'type' => 'confirm',
-                            'text' =>  $age_pre.'ใช่ไหมคะ?' ,
-                            'actions' => [
-                                [
-                                    'type' => 'message',
-                                    'label' => 'ใช่',
-                                    'text' => 'อายุครรภ์ถูกต้อง'
-                                ],
-                                [
-                                    'type' => 'message',
-                                    'label' => 'ไม่ใช่',
-                                    'text' => 'ไม่ถูกต้อง'
-                                ],
-                            ]
-                        ]
-                    ];   
+//                     $messages = [
+//                         'type' => 'template',
+//                         'altText' => 'this is a confirm template',
+//                         'template' => [
+//                             'type' => 'confirm',
+//                             'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+//                             'actions' => [
+//                                 [
+//                                     'type' => 'message',
+//                                     'label' => 'ใช่',
+//                                     'text' => 'อายุครรภ์ถูกต้อง'
+//                                 ],
+//                                 [
+//                                     'type' => 'message',
+//                                     'label' => 'ไม่ใช่',
+//                                     'text' => 'ไม่ถูกต้อง'
+//                                 ],
+//                             ]
+//                         ]
+//                     ];   
 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+// $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
 
-                break;
-                 default:
-                          $replyToken = $event['replyToken'];
-                           $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
+//                 break;
+//                  default:
+//                           $replyToken = $event['replyToken'];
+//                            $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
                              
-                                  $messages = [
-                                      'type' => 'template',
-                                      'altText' => 'this is a confirm template',
-                                      'template' => [
-                                          'type' => 'confirm',
-                                          'text' =>  $age_pre.'ใช่ไหมคะ?' ,
-                                          'actions' => [
-                                              [
-                                                  'type' => 'message',
-                                                  'label' => 'ใช่',
-                                                  'text' => 'อายุครรภ์ถูกต้อง'
-                                              ],
-                                              [
-                                                  'type' => 'message',
-                                                  'label' => 'ไม่ใช่',
-                                                  'text' => 'ไม่ถูกต้อง'
-                                              ],
-                                          ]
-                                      ]
-                                  ];   
+//                                   $messages = [
+//                                       'type' => 'template',
+//                                       'altText' => 'this is a confirm template',
+//                                       'template' => [
+//                                           'type' => 'confirm',
+//                                           'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+//                                           'actions' => [
+//                                               [
+//                                                   'type' => 'message',
+//                                                   'label' => 'ใช่',
+//                                                   'text' => 'อายุครรภ์ถูกต้อง'
+//                                               ],
+//                                               [
+//                                                   'type' => 'message',
+//                                                   'label' => 'ไม่ใช่',
+//                                                   'text' => 'ไม่ถูกต้อง'
+//                                               ],
+//                                           ]
+//                                       ]
+//                                   ];   
 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+// $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
               
-              break;
-                  }
+//               break;
+//                   }
 
 
-        }elseif($month > $today_month && $month<=12 && $date<=31){
-                 $years = $today_years;
-                 $strDate1 = $years."-".$month."-".$date;
-                 $strDate2=date("Y-m-d");
+//         }elseif($month > $today_month && $month<=12 && $date<=31){
+//                  $years = $today_years;
+//                  $strDate1 = $years."-".$month."-".$date;
+//                  $strDate2=date("Y-m-d");
                 
-                 $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
-                 $week = $date_pre/7;
-                 $week_preg =floor($week);
-                 $day = $date_pre%7;
-                 $day_preg = number_format($day);
-                 $m = 39-$week_preg  ;
-                 $d = 7-$day_preg;
+//                  $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
+//                  $week = $date_pre/7;
+//                  $week_preg =floor($week);
+//                  $day = $date_pre%7;
+//                  $day_preg = number_format($day);
+//                  $m = 39-$week_preg  ;
+//                  $d = 7-$day_preg;
               
-                  switch ($d){
-                 case '7':
-                  $w_preg = $m + 1;
+//                   switch ($d){
+//                  case '7':
+//                   $w_preg = $m + 1;
 
-                $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์' ;
-                $replyToken = $event['replyToken'];
+//                 $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์' ;
+//                 $replyToken = $event['replyToken'];
                     
-                    $messages = [
-                        'type' => 'template',
-                        'altText' => 'this is a confirm template',
-                        'template' => [
-                            'type' => 'confirm',
-                            'text' =>  $age_pre.'ใช่ไหมคะ?' ,
-                            'actions' => [
-                                [
-                                    'type' => 'message',
-                                    'label' => 'ใช่',
-                                    'text' => 'อายุครรภ์ถูกต้อง'
-                                ],
-                                [
-                                    'type' => 'message',
-                                    'label' => 'ไม่ใช่',
-                                    'text' => 'ไม่ถูกต้อง'
-                                ],
-                            ]
-                        ]
-                    ];   
+//                     $messages = [
+//                         'type' => 'template',
+//                         'altText' => 'this is a confirm template',
+//                         'template' => [
+//                             'type' => 'confirm',
+//                             'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+//                             'actions' => [
+//                                 [
+//                                     'type' => 'message',
+//                                     'label' => 'ใช่',
+//                                     'text' => 'อายุครรภ์ถูกต้อง'
+//                                 ],
+//                                 [
+//                                     'type' => 'message',
+//                                     'label' => 'ไม่ใช่',
+//                                     'text' => 'ไม่ถูกต้อง'
+//                                 ],
+//                             ]
+//                         ]
+//                     ];   
 
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+// $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
 
-              break;
-                 default:
-                          $replyToken = $event['replyToken'];
-                           $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
+//               break;
+//                  default:
+//                           $replyToken = $event['replyToken'];
+//                            $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
                              
-                                  $messages = [
-                                      'type' => 'template',
-                                      'altText' => 'this is a confirm template',
-                                      'template' => [
-                                          'type' => 'confirm',
-                                          'text' =>  $age_pre.'ใช่ไหมคะ?' ,
-                                          'actions' => [
-                                              [
-                                                  'type' => 'message',
-                                                  'label' => 'ใช่',
-                                                  'text' => 'อายุครรภ์ถูกต้อง'
-                                              ],
-                                              [
-                                                  'type' => 'message',
-                                                  'label' => 'ไม่ใช่',
-                                                  'text' => 'ไม่ถูกต้อง'
-                                              ],
-                                          ]
-                                      ]
-                                  ];  
-$q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
-                  break;
-                  }
+//                                   $messages = [
+//                                       'type' => 'template',
+//                                       'altText' => 'this is a confirm template',
+//                                       'template' => [
+//                                           'type' => 'confirm',
+//                                           'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+//                                           'actions' => [
+//                                               [
+//                                                   'type' => 'message',
+//                                                   'label' => 'ใช่',
+//                                                   'text' => 'อายุครรภ์ถูกต้อง'
+//                                               ],
+//                                               [
+//                                                   'type' => 'message',
+//                                                   'label' => 'ไม่ใช่',
+//                                                   'text' => 'ไม่ถูกต้อง'
+//                                               ],
+//                                           ]
+//                                       ]
+//                                   ];  
+// $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+//                   break;
+//                   }
 
-                 }
+//                  }
 
 
-      $url = 'https://api.line.me/v2/bot/message/reply';
-         $data = [
-          'replyToken' => $replyToken,
-          'messages' => [$messages],
-         ];
-         error_log(json_encode($data));
-         $post = json_encode($data);
-         $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-         $ch = curl_init($url);
-         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-         $result = curl_exec($ch);
-         curl_close($ch);
-         echo $result . "\r\n";
-    // $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $week_preg ,'0017','0',NOW(),NOW())") or die(pg_errormessage());
+//       $url = 'https://api.line.me/v2/bot/message/reply';
+//          $data = [
+//           'replyToken' => $replyToken,
+//           'messages' => [$messages],
+//          ];
+//          error_log(json_encode($data));
+//          $post = json_encode($data);
+//          $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+//          $ch = curl_init($url);
+//          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//          curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+//          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+//          curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//          $result = curl_exec($ch);
+//          curl_close($ch);
+//          echo $result . "\r\n";
 
 
 
@@ -2560,6 +2463,438 @@ $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updat
   
  }
 }
+
+
+    public function pregnancy_calculator($user_id,$_msg,$seqcode)
+    {          
+
+                if(strpos($_msg, '/') !== false ){
+                  $pieces = explode("/", $_msg);
+                  $date   = str_replace("","",$pieces[0]);
+                  $month  = str_replace("","",$pieces[1]);
+                  $today_years= date("Y") ;
+                  $today_month= date("m") ;
+                  $today_day  = date("d") ;
+
+                if(is_numeric($month) == false){
+                    $month = check_month($month);
+                  }
+                }elseif(strpos($_msg, ':') !== false ){
+                  $pieces = explode(":", $_msg);
+                  $date   = str_replace("","",$pieces[0]);
+                  $month  = str_replace("","",$pieces[1]);
+                  $today_years= date("Y") ;
+                  $today_month= date("m") ;
+                  $today_day  = date("d") ;
+                if(is_numeric($month) == false){
+                    $month = check_month($month);
+                  }
+                }elseif(strpos($_msg, '-') !== false ){
+                  $pieces = explode("-", $_msg);
+                  $date   = str_replace("","",$pieces[0]);
+                  $month  = str_replace("","",$pieces[1]);
+                  $today_years= date("Y") ;
+                  $today_month= date("m") ;
+                  $today_day  = date("d") ;
+         
+                  if(is_numeric($month) == false){
+                    $month = check_month($month);
+                  }
+                }elseif(strpos($_msg, ' ') !== false ){
+                  $pieces = explode(" ", $_msg);
+                  $date   = str_replace("","",$pieces[0]);
+                  $month  = str_replace("","",$pieces[1]);
+                  $today_years= date("Y") ;
+                  $today_month= date("m") ;
+                  $today_day  = date("d") ;
+
+                  if(is_numeric($month) == false){
+                    $month = check_month($month);
+                     if($month=='00'){
+                      $textReplyMessage = 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง';
+                      return   $textReplyMessage;
+                     }
+                  }
+                  
+                }
+
+        switch($seqcode) {
+     
+                 case ($seqcode=='1015' || $seqcode =='10640'): 
+                  if(($month>$today_month&& $month<=12 && $date<=31) || ($month==$today_month && $date>$today_day)  ){
+                    $years = $today_years-1;
+                    $strDate1 = $years."-".$month."-".$date;
+                    $strDate2=date("Y-m-d");
+                    
+                    $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );
+                    $week = $date_pre/7;
+                    $week_preg = number_format($week);
+                    $day = $date_pre%7;
+                    $day_preg = number_format($day);
+                    $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+                          $replyToken = $event['replyToken'];
+                          $messages = [
+                              'type' => 'template',
+                              'altText' => 'this is a confirm template',
+                              'template' => [
+                                  'type' => 'confirm',
+                                  'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                                  'actions' => [
+                                      [
+                                          'type' => 'message',
+                                          'label' => 'ใช่',
+                                          'text' => 'อายุครรภ์ถูกต้อง'
+                                      ],
+                                      [
+                                          'type' => 'message',
+                                          'label' => 'ไม่ใช่',
+                                          'text' => 'ไม่ถูกต้อง'
+                                      ],
+                                  ]
+                              ]
+                          ];   
+            
+            }elseif($month<$today_month && $month<=12 && $date<=31){
+                $strDate1 = $today_years."-".$month."-".$date;
+                $strDate2=date("Y-m-d");
+                $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );;
+                $week = $date_pre/7;
+                $week_preg = number_format($week);
+                $day = $date_pre%7;
+                $day_preg = number_format($day);
+                $age_pre = 'คุณมีอายุครรภ์'. $week_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+                    $replyToken = $event['replyToken'];
+                    $messages = [
+                        'type' => 'template',
+                        'altText' => 'this is a confirm template',
+                        'template' => [
+                            'type' => 'confirm',
+                            'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                            'actions' => [
+                                [
+                                    'type' => 'message',
+                                    'label' => 'ใช่',
+                                    'text' => 'อายุครรภ์ถูกต้อง'
+                                ],
+                                [
+                                    'type' => 'message',
+                                    'label' => 'ไม่ใช่',
+                                    'text' => 'ไม่ถูกต้อง'
+                                ],
+                            ]
+                        ]
+                    ];   
+            }else{
+               $replyToken = $event['replyToken'];
+                 $messages = [
+                        'type' => 'text',
+                        'text' => 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง'
+                      ];
+            }
+
+
+
+
+
+
+                                    /*if($month>$today_month&& $month<=12 && $date<=31  ){
+                                        $years = $today_years-1;
+                                        $strDate1 = $years."-".$month."-".$date;
+                                        $strDate2=date("Y-m-d");
+                                        
+                                        $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );
+                                        $week = $date_pre/7;
+                                        $w_preg = number_format($week);
+                                        $day = $date_pre%7;
+                                        $day_preg = number_format($day);
+                                        $age_pre = 'คุณมีอายุครรภ์'.$w_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+                                        $this->sequentsteps_update2($user,$w_preg);
+                                        return  $age_pre;  
+                                           
+
+                                    }elseif($month<=$today_month && $month<=12 && $date<=31){
+                                        $strDate1 = $today_years."-".$month."-".$date;
+                                        $strDate2=date("Y-m-d");
+                                        $date_pre =  (strtotime($strDate2) - strtotime($strDate1))/( 60 * 60 * 24 );;
+                                        $week = $date_pre/7;
+                                        $w_preg = number_format($week);
+                                        $day = $date_pre%7;
+                                        $day_preg = number_format($day);
+                                        $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์'.  $day_preg .'วัน' ;
+                                        $this->sequentsteps_update2($user,$w_preg);
+                                        return  $age_pre;    
+                                    }else{
+
+                                        $textReplyMessage = 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง';
+                                        return   $textReplyMessage;
+
+                                    }*/
+                    break;
+
+                 case ($seqcode=='2015'|| $seqcode=='20640')  : 
+                         if( $month < $today_month && $month<=12 && $date<=31){
+                         $years = $today_years+1;
+                         $strDate1 = $years."-".$month."-".$date;
+                         $strDate2=date("Y-m-d");
+                        
+                         $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
+                         $week = $date_pre/7;
+                         $week_preg =floor($week);
+                         $day = $date_pre%7;
+                         $day_preg = number_format($day);
+                         $m = 39-$week_preg  ;
+                         $d = 7-$day_preg;
+                     
+                         switch ($d){
+                         case '7':
+                          $w_preg = $m + 1;
+
+                        $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์' ;
+                        $replyToken = $event['replyToken'];
+                            
+                            $messages = [
+                                'type' => 'template',
+                                'altText' => 'this is a confirm template',
+                                'template' => [
+                                    'type' => 'confirm',
+                                    'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                                    'actions' => [
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ใช่',
+                                            'text' => 'อายุครรภ์ถูกต้อง'
+                                        ],
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ไม่ใช่',
+                                            'text' => 'ไม่ถูกต้อง'
+                                        ],
+                                    ]
+                                ]
+                            ];   
+
+        $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+
+                        break;
+                         default:
+                                  $replyToken = $event['replyToken'];
+                                   $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
+                                     
+                                          $messages = [
+                                              'type' => 'template',
+                                              'altText' => 'this is a confirm template',
+                                              'template' => [
+                                                  'type' => 'confirm',
+                                                  'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                                                  'actions' => [
+                                                      [
+                                                          'type' => 'message',
+                                                          'label' => 'ใช่',
+                                                          'text' => 'อายุครรภ์ถูกต้อง'
+                                                      ],
+                                                      [
+                                                          'type' => 'message',
+                                                          'label' => 'ไม่ใช่',
+                                                          'text' => 'ไม่ถูกต้อง'
+                                                      ],
+                                                  ]
+                                              ]
+                                          ];   
+
+        $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+                      
+                      break;
+                          }
+
+
+                }elseif($month > $today_month && $month<=12 && $date<=31){
+                         $years = $today_years;
+                         $strDate1 = $years."-".$month."-".$date;
+                         $strDate2=date("Y-m-d");
+                        
+                         $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
+                         $week = $date_pre/7;
+                         $week_preg =floor($week);
+                         $day = $date_pre%7;
+                         $day_preg = number_format($day);
+                         $m = 39-$week_preg  ;
+                         $d = 7-$day_preg;
+                      
+                          switch ($d){
+                         case '7':
+                          $w_preg = $m + 1;
+
+                        $age_pre = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์' ;
+                        $replyToken = $event['replyToken'];
+                            
+                            $messages = [
+                                'type' => 'template',
+                                'altText' => 'this is a confirm template',
+                                'template' => [
+                                    'type' => 'confirm',
+                                    'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                                    'actions' => [
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ใช่',
+                                            'text' => 'อายุครรภ์ถูกต้อง'
+                                        ],
+                                        [
+                                            'type' => 'message',
+                                            'label' => 'ไม่ใช่',
+                                            'text' => 'ไม่ถูกต้อง'
+                                        ],
+                                    ]
+                                ]
+                            ];   
+
+        $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $w_preg ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+
+                      break;
+                         default:
+                                  $replyToken = $event['replyToken'];
+                                   $age_pre = 'คุณมีอายุครรภ์'. $m .'สัปดาห์'.  $d .'วัน' ;
+                                     
+                                          $messages = [
+                                              'type' => 'template',
+                                              'altText' => 'this is a confirm template',
+                                              'template' => [
+                                                  'type' => 'confirm',
+                                                  'text' =>  $age_pre.'ใช่ไหมคะ?' ,
+                                                  'actions' => [
+                                                      [
+                                                          'type' => 'message',
+                                                          'label' => 'ใช่',
+                                                          'text' => 'อายุครรภ์ถูกต้อง'
+                                                      ],
+                                                      [
+                                                          'type' => 'message',
+                                                          'label' => 'ไม่ใช่',
+                                                          'text' => 'ไม่ถูกต้อง'
+                                                      ],
+                                                  ]
+                                              ]
+                                          ];  
+        $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015', $m ,'0018','0',NOW(),NOW())") or die(pg_errormessage());
+                          break;
+                          }
+
+                         }
+                        
+                         // if( $month < $today_month && $month<=12 && $date<=31){
+                         //         $years = $today_years+1;
+                         //         $strDate1 = $years."-".$month."-".$date;
+                         //         $strDate2=date("Y-m-d");
+                                
+                         //         $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
+                         //         $week = $date_pre/7;
+                         //         $week_preg =floor($week);
+                         //         $day = $date_pre%7;
+                         //         $day_preg = number_format($day);
+                         //         $w_preg = 39-$week_preg  ;
+                         //         $d = 7-$day_preg;
+
+
+                         // switch ($d){
+                         // case '7':
+                         //      $w_preg = $w_preg + 1;
+                         //      $replyData = 'คุณมีอายุครรภ์'.  $w_preg  .'สัปดาห์';
+                         //      $this->sequentsteps_update2($user,$w_preg);
+                         //      return  $replyData;
+                         //  break;
+                         // default:
+                         //      $replyData = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์'.  $d .'วัน' ;
+                         //      $this->sequentsteps_update2($user,$w_preg);
+                         //      return  $replyData;
+                         //  break;
+                         //  }
+
+                         // }elseif($month >= $today_month && $month<=12 && $date<=31){
+                         //         $years = $today_years;
+                         //         $strDate1 = $years."-".$month."-".$date;
+                         //         $strDate2=date("Y-m-d");
+                                
+                         //         $date_pre =  (strtotime($strDate1) - strtotime($strDate2))/( 60 * 60 * 24 );
+                         //         $week = $date_pre/7;
+                         //         $week_preg =floor($week);
+                         //         $day = $date_pre%7;
+                         //         $day_preg = number_format($day);
+                         //         $w_preg = 39-$week_preg  ;
+                         //         $d = 7-$day_preg;
+                      
+                         //  switch ($d){
+                         //       case '7':
+                         //          $w_preg = $w_preg + 1;
+                         //          $replyData ='คุณมีอายุครรภ์'.  $w_preg  .'สัปดาห์';
+                         //          $this->sequentsteps_update2($user,$w_preg);
+                         //          return  $replyData;
+                         //         break;
+                         //       default:
+                         //          $replyData = 'คุณมีอายุครรภ์'. $w_preg .'สัปดาห์'.  $d .'วัน' ;
+                         //          $this->sequentsteps_update2($user,$w_preg);
+                         //         return  $replyData;
+                         //         break;
+                         //   }
+                         // }else{
+
+                         //                $textReplyMessage = 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง';
+                         //                return   $textReplyMessage;
+
+                         //            }
+               
+                     break;
+
+                   
+      }
+    }
+
+    public function check_month($month){
+
+              switch ($month) {
+              case ($month == 'มกราคม' || $month == 'ม.ค.' || $month == 'มค' || $month == 'มกรา'):
+                  $month = '01';
+                  break;
+              case ($month == 'กุมภาพันธ์' || $month == 'ก.พ.' || $month == 'กพ'|| $month == 'กุมภา'):
+                  $month = '02';
+                  break;
+              case ($month == 'มีนาคม' || $month == 'มี.ค.'|| $month == 'มีค.'|| $month == 'มีนา'):
+                  $month = '03';
+                  break;
+              case ($month == 'เมษายน' || $month == ' เม.ย.'|| $month == 'เมย'|| $month == 'เมษา'):
+                  $month = '04';
+                  break;
+              case ($month == 'พฤษภาคม' || $month == ' พ.ค.'|| $month == 'พค'|| $month == 'พฤษภา'):
+                  $month = '05';
+                  break;
+              case ($month == 'มิถุนายน' || $month == 'มิ.ย.'|| $month == 'มิย'|| $month == 'มิถุนา'):
+                  $month = '06';
+                  break;
+              case ($month == 'กรกฎาคม' || $month == 'ก.ค.'|| $month == 'กค'|| $month == 'กรกฎา'):
+                  $month = '07';
+                  break;
+              case ($month == 'สิงหาคม' || $month == 'ส.ค.'|| $month == 'สค'|| $month == 'สิงหา'):
+                  $month = '08';
+                  break;
+              case ($month == 'กันยายน' || $month == 'ก.ย.'|| $month == 'กย'|| $month == 'กันยา'):
+                  $month = '09';
+                  break;
+              case ($month == 'ตุลาคม' || $month == 'ต.ค.'|| $month == 'ตค'|| $month == 'ตุลา'):
+                  $month = '10';
+                  break;
+              case ($month == 'พฤศจิกายน' || $month == 'พ.ย.'|| $month == 'พย'|| $month == 'พฤศจิกา'):
+                  $month = '11';
+                  break;
+              case ($month == 'ธันวาคม' || $month == 'ธ.ค.'|| $month == 'ธค'|| $month == 'ธันวา'):
+                  $month = '12';
+                  break;   
+               default:
+                   $month = '00';
+                   break;   
+
+
+   }
+    return  $month;
+ }
   // Make a POST Request to Messaging API to reply to sender
          $url = 'https://api.line.me/v2/bot/message/reply';
          // $url2 = 'https://api.line.me/v2/bot/message/reply';
