@@ -455,7 +455,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-  }elseif (/*strlen($_msg) == 5 &&*/ $seqcode == "1015") {
+  }elseif (/*strlen($_msg) == 5 &&*/is_string($_msg) !== false && $seqcode == "1015") {
  
 
     // $pieces = explode(" ", $_msg);
@@ -505,7 +505,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                           $today_years= date("Y") ;
                           $today_month= date("m") ;
                           $today_day  = date("d") ;
-                          
+
 /*                if(is_numeric($month) == false){
                     $month = $this->check_month($month);
                      if($month=='00'){
