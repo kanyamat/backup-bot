@@ -455,10 +455,10 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-  }elseif (/*strlen($_msg) == 5 &&*/strpos($_msg) !== false && $seqcode == "1015" || $seqcode == "1015") {
+  }elseif (/*strlen($_msg) == 5 &&*/strpos($_msg) !== false && $seqcode == "1015" || $seqcode == "2015") {
   
     $_msg = pregnancy_calculator($user_id,$_msg,$seqcode);
-
+$replyToken = $event['replyToken'];
     // $pieces = explode(" ", $_msg);
     // $date = str_replace("","",$pieces[0]);
     // $month  = str_replace("","",$pieces[1]);
