@@ -476,12 +476,12 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
           $month  = str_replace("","",$pieces[1]);
     }
      else {
-      $n = "ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง";
+      $n = "ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง กรุณาพิมพ์ใหม่นะคะ";
     }
     
-    $pieces = explode(" ", $_msg);
-    $date = str_replace("","",$pieces[0]);
-    $month  = str_replace("","",$pieces[1]);
+    // $pieces = explode(" ", $_msg);
+    // $date = str_replace("","",$pieces[0]);
+    // $month  = str_replace("","",$pieces[1]);
    
             $today_years= date("Y") ;
             $today_month= date("m") ;
