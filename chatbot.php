@@ -458,13 +458,13 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
   }elseif (/*strlen($_msg) == 5 &&*/ $seqcode == "1015") {
  
 
-    $pieces = explode(" ", $_msg);
-    $date = str_replace("","",$pieces[0]);
-    $month  = str_replace("","",$pieces[1]);
+    // $pieces = explode(" ", $_msg);
+    // $date = str_replace("","",$pieces[0]);
+    // $month  = str_replace("","",$pieces[1]);
    
-            $today_years= date("Y") ;
-            $today_month= date("m") ;
-            $today_day  = date("d") ;
+    //         $today_years= date("Y") ;
+    //         $today_month= date("m") ;
+    //         $today_day  = date("d") ;
 
         if(strpos($_msg, '/') !== false ){
                           $pieces = explode("/", $_msg);
