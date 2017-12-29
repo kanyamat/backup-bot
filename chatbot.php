@@ -466,55 +466,55 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
     //         $today_month= date("m") ;
     //         $today_day  = date("d") ;
 
-        if(strpos($_msg, '/') !== false ){
-                          $pieces = explode("/", $_msg);
-                          $date   = str_replace("","",$pieces[0]);
-                          $month  = str_replace("","",$pieces[1]);
-                          $today_years= date("Y") ;
-                          $today_month= date("m") ;
-                          $today_day  = date("d") ;
+//         if(strpos($_msg, '/') !== false ){
+//                           $pieces = explode("/", $_msg);
+//                           $date   = str_replace("","",$pieces[0]);
+//                           $month  = str_replace("","",$pieces[1]);
+//                           $today_years= date("Y") ;
+//                           $today_month= date("m") ;
+//                           $today_day  = date("d") ;
 
-                        if(is_numeric($month) == false){
-                            $month = check_month($month);
-                          }
-                        }elseif(strpos($_msg, ':') !== false ){
-                          $pieces = explode(":", $_msg);
-                          $date   = str_replace("","",$pieces[0]);
-                          $month  = str_replace("","",$pieces[1]);
-                          $today_years= date("Y") ;
-                          $today_month= date("m") ;
-                          $today_day  = date("d") ;
-                        if(is_numeric($month) == false){
-                            $month = check_month($month);
-                          }
-                        }elseif(strpos($_msg, '-') !== false ){
-                          $pieces = explode("-", $_msg);
-                          $date   = str_replace("","",$pieces[0]);
-                          $month  = str_replace("","",$pieces[1]);
-                          $today_years= date("Y") ;
-                          $today_month= date("m") ;
-                          $today_day  = date("d") ;
+//                         if(is_numeric($month) == false){
+//                             $month = check_month($month);
+//                           }
+//                         }elseif(strpos($_msg, ':') !== false ){
+//                           $pieces = explode(":", $_msg);
+//                           $date   = str_replace("","",$pieces[0]);
+//                           $month  = str_replace("","",$pieces[1]);
+//                           $today_years= date("Y") ;
+//                           $today_month= date("m") ;
+//                           $today_day  = date("d") ;
+//                         if(is_numeric($month) == false){
+//                             $month = check_month($month);
+//                           }
+//                         }elseif(strpos($_msg, '-') !== false ){
+//                           $pieces = explode("-", $_msg);
+//                           $date   = str_replace("","",$pieces[0]);
+//                           $month  = str_replace("","",$pieces[1]);
+//                           $today_years= date("Y") ;
+//                           $today_month= date("m") ;
+//                           $today_day  = date("d") ;
                  
-                          if(is_numeric($month) == false){
-                            $month = check_month($month);
-                          }
-                        }elseif(strpos($_msg, ' ') !== false ){
-                          $pieces = explode(" ", $_msg);
-                          $date   = str_replace("","",$pieces[0]);
-                          $month  = str_replace("","",$pieces[1]);
-                          $today_years= date("Y") ;
-                          $today_month= date("m") ;
-                          $today_day  = date("d") ;
+//                           if(is_numeric($month) == false){
+//                             $month = check_month($month);
+//                           }
+//                         }elseif(strpos($_msg, ' ') !== false ){
+//                           $pieces = explode(" ", $_msg);
+//                           $date   = str_replace("","",$pieces[0]);
+//                           $month  = str_replace("","",$pieces[1]);
+//                           $today_years= date("Y") ;
+//                           $today_month= date("m") ;
+//                           $today_day  = date("d") ;
 
-/*                if(is_numeric($month) == false){
-                    $month = $this->check_month($month);
-                     if($month=='00'){
-                      $textReplyMessage = 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง';
-                      return   $textReplyMessage;
-                     }
-                  }*/
+// /*                if(is_numeric($month) == false){
+//                     $month = $this->check_month($month);
+//                      if($month=='00'){
+//                       $textReplyMessage = 'ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง';
+//                       return   $textReplyMessage;
+//                      }
+//                   }*/
                   
-                }
+//                 }
 
 
 
