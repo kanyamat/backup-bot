@@ -427,7 +427,7 @@ $q = pg_exec($dbconn, "UPDATE users_register SET user_weight = $answer WHERE use
                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
-                        'text' => 'ขอทราบครั้งสุดท้ายที่คุณมีประจำเดือนเพื่อคำนวณอายุครรภ์ค่ะ (กรุณาตอบวันที่และเดือนเป็นตัวเลขนะคะ เช่น 17 04 คือ วันที่ 17 เมษายน)'
+                        'text' => 'ขอทราบครั้งสุดท้ายที่คุณมีประจำเดือนเพื่อคำนวณอายุครรภ์ค่ะ (กรุณาตอบวันที่เว้นวรรคด้วยเดือนเป็นตัวเลขนะคะ เช่น 17 04 คือ วันที่ 17 เมษายน)'
                       ];
 
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','1015','','0016','0',NOW(),NOW())") or die(pg_errormessage());
@@ -447,7 +447,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
                  $replyToken = $event['replyToken'];
                  $messages = [
                         'type' => 'text',
-                        'text' => 'ขอทราบกำหนดการคลอดของคุณหน่อยค่ะ (กรุณาตอบวันที่และเดือนเป็นตัวเลขนะคะ เช่น 17 04 คือ วันที่ 17 เมษายน)'
+                        'text' => 'ขอทราบกำหนดการคลอดของคุณหน่อยค่ะ (กรุณาตอบวันที่เว้นวรรคด้วยเดือนเป็นตัวเลขนะคะ เช่น 17 04 คือ วันที่ 17 เมษายน)'
                       ];
 
 
@@ -491,7 +491,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
       $month = '01';
     }elseif ($month == "กุมภาพันธ์" || $month == "ก.พ." || $month == "กพ"|| $month == "กุมภา") {
       $month = '02';
-    }elseif ($month == "มีนาคม" || $month == "มี.ค."|| $month == "มีค."|| $month == "มีนา") {
+    }elseif ($month == "มีนาคม" || $month == "มี.ค."|| $month == "มีค"|| $month == "มีนา") {
       $month = '03';
     }elseif ($month == "เมษายน" || $month == "เม.ย."|| $month == "เมย"|| $month == "เมษา") {
       $month = '04';
@@ -650,7 +650,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
       $month = '01';
     }elseif ($month == "กุมภาพันธ์" || $month == "ก.พ." || $month == "กพ"|| $month == "กุมภา") {
       $month = '02';
-    }elseif ($month == "มีนาคม" || $month == "มี.ค."|| $month == "มีค."|| $month == "มีนา") {
+    }elseif ($month == "มีนาคม" || $month == "มี.ค."|| $month == "มีค"|| $month == "มีนา") {
       $month = '03';
     }elseif ($month == "เมษายน" || $month == "เม.ย."|| $month == "เมย"|| $month == "เมษา") {
       $month = '04';
