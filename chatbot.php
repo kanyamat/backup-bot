@@ -458,6 +458,26 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
   }elseif (/*strlen($_msg) == 5*/strpos($_msg) !== false && $seqcode == "1015") {
     // $birth_years =  str_replace("วันที่","", $_msg);
 
+    if (strpos($_msg,' ')!== false) {
+          $pieces = explode(" ", $_msg);
+          $date = str_replace("","",$pieces[0]);
+          $month  = str_replace("","",$pieces[1]);
+    }elseif (strpos($_msg,'-')!== false) {
+          $pieces = explode("-", $userMessage);
+          $date   = str_replace("","",$pieces[0]);
+          $month  = str_replace("","",$pieces[1]);
+    }elseif (strpos($_msg,'/')!== false) {
+          $pieces = explode("/", $userMessage);
+          $date   = str_replace("","",$pieces[0]);
+          $month  = str_replace("","",$pieces[1]);
+    }elseif (strpos($_msg,':')!== false) {
+          $pieces = explode(":", $userMessage);
+          $date   = str_replace("","",$pieces[0]);
+          $month  = str_replace("","",$pieces[1]);
+    }
+     else {
+      $n = "ดูเหมือนคุณจะพิมพ์ไม่ถูกต้อง";
+    }
     
     $pieces = explode(" ", $_msg);
     $date = str_replace("","",$pieces[0]);
