@@ -455,7 +455,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 ########################################################################################################################################################
 
-  }elseif (strlen($_msg) == 5 && $seqcode == "1015") {
+  }elseif (strpos($_msg, '/') !== false || strpos($_msg, ':') !== false || strpos($_msg, '-') !== false || strpos($_msg, ' ') !== false && $seqcode == "1015") {
  
 
     $pieces = explode(" ", $_msg);
