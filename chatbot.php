@@ -2536,15 +2536,15 @@ $q2 = pg_exec($dbconn, "INSERT INTO tracker(user_id,food, exercise,vitamin,updat
 ########################################################################################################################################################
 
   }else {
-    if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+    // if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
       $replyToken = $event['replyToken'];
       $text = "ดิฉันไม่เข้าใจค่ะ กรุณาพิมพ์ใหม่อีกครั้งนะคะ";
       $messages = [
           'type' => 'text',
           'text' => $text
         ]; 
-    }
-
+    // }
+/*หากคุณสนใจให้ดิฉันเป็นผู้ช่วยอัตโนมัติของคุณ กรุณาพิมพ์ว่า "สนใจ" ได้เลยนะคะ*/
  //   $replyToken = $event['replyToken'];
  //      $text = "หากคุณสนใจให้ดิฉันเป็นผู้ช่วยอัตโนมัติของคุณ โปรดกดยืนยันด้านล่างด้วยนะคะ";
  //          $messages = [
