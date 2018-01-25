@@ -8,7 +8,7 @@ $dbconn = pg_pconnect($conn_string);
 $user = $_GET["data"];
 $user_id = pg_escape_string($user);
  // echo $user_id;
-$check = pg_query($dbconn,"SELECT user_weight FROM users_register  WHERE  user_id = '{$user_id}'  ");
+$check = pg_query($dbconn,"SELECT user_height ,user_pre_weight FROM users_register  WHERE  user_id = '{$user_id}'  ");
                 while ($row= pg_fetch_row($check)) {
               
                  $result = $row[0];
@@ -16,15 +16,15 @@ $check = pg_query($dbconn,"SELECT user_weight FROM users_register  WHERE  user_i
                 } 
 $a =[];
 $arrayName=[];
-$check_q = pg_query($dbconn,"SELECT preg_week ,preg_weight FROM recordofpregnancy  WHERE  user_id = '{$user_id}'  ");
-                while ($arr= pg_fetch_array($check_q)) {
-                  $week = $arr[0];
-                  $weight = $arr[1]-$result;
+// $check_q = pg_query($dbconn,"SELECT user_height ,user_pre_weight FROM recordofpregnancy  WHERE  user_id = '{$user_id}'  ");
+//                 while ($arr= pg_fetch_array($check_q)) {
+//                   $week = $arr[0];
+//                   $weight = $arr[1]-$result;
          
-                  $arrayName[] = array( 'date' => $week,
-                                      'duration'=> $weight);
-                }   
-$data = json_encode($arrayName);
+//                   $arrayName[] = array( 'date' => $week,
+//                                       'duration'=> $weight);
+//                 }   
+// $data = json_encode($arrayName);
 // echo "var data = '$data';";
 ?>
 <!DOCTYPE html>
@@ -106,24 +106,24 @@ if (!$dbconn) {
 $user = $_GET["data"];
 $user_id = pg_escape_string($user);
  // echo $user_id;
-$check = pg_query($dbconn,"SELECT user_weight FROM users_register  WHERE  user_id = '{$user_id}'  ");
+$check = pg_query($dbconn,"SELECT user_height ,user_pre_weight FROM users_register  WHERE  user_id = '{$user_id}'  ");
                 while ($row= pg_fetch_row($check)) {
               
                  $result = $row[0];
   
                 } 
-$arrayName=[];
-$check_q = pg_query($dbconn,"SELECT preg_week ,preg_weight FROM recordofpregnancy WHERE  user_id = '{$user_id}' order by preg_week  ASC  ");
-                while ($arr= pg_fetch_array($check_q)) {
-                  $week = $arr[0];
+// $arrayName=[];
+// $check_q = pg_query($dbconn,"SELECT preg_week ,preg_weight FROM recordofpregnancy WHERE  user_id = '{$user_id}' order by preg_week  ASC  ");
+//                 while ($arr= pg_fetch_array($check_q)) {
+//                   $week = $arr[0];
            
-                        $weight = $arr[1]-$result;
-                        $weight1 = abs($weight);
+//                         $weight = $arr[1]-$result;
+//                         $weight1 = abs($weight);
                  
-                  $arrayName[] = array( 'date' =>  $week ,
-                                       'duration'=> $weight1);
-                }  
-echo $data = json_encode($arrayName);
+//                   $arrayName[] = array( 'date' =>  $week ,
+//                                        'duration'=> $weight1);
+//                 }  
+// echo $data = json_encode($arrayName);
  ?>;
     // chartData.push({
     //     "date": "2012-01-04",
