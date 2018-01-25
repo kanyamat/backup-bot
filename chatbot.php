@@ -453,30 +453,7 @@ $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextse
 
 $q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','2015','','0016','0',NOW(),NOW())") or die(pg_errormessage());
 
-###############################################################################################################################
- }elseif ($event['message']['text'] == "อายุครรภ์ถูกต้อง"  ) {
-    $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1  ");
-                while ($row = pg_fetch_row($check_q)) {
-            
-                  echo $answer = $row[3];  
-                } 
-                 $replyToken = $event['replyToken'];
-                 $messages = [
-                        'type' => 'text',
-                        'text' => 'ขอทราบเบอร์โทรศัพท์ของคุณหน่อยค่ะ'
-                      ];
-   
-
- $q = pg_exec($dbconn, "UPDATE users_register SET preg_week = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
-$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017','','0018','0',NOW(),NOW())") or die(pg_errormessage());
-
- $check_q = pg_query($dbconn,"SELECT user_weight FROM users_register  WHERE user_id  = '{$user_id}' order by updated_at desc limit 1   ");
-                while ($row = pg_fetch_row($check_q)) {
-            
-                  echo $preg_weight = $row[0];  
-                } 
- $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_weight, preg_week,updated_at )VALUES('{$user_id}', $preg_weight , $answer ,  NOW()) ") or die(pg_errormessage());  
-#######################################################################################################################################################
+########################################################################################################################################################
 
   }elseif (/*strlen($_msg) == 5*/strpos($_msg) !== false && $seqcode == "1015") {
     // $birth_years =  str_replace("วันที่","", $_msg);
@@ -867,7 +844,29 @@ $q = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseq
 
 
 
+###############################################################################################################################
+ }elseif ($event['message']['text'] == "อายุครรภ์ถูกต้อง"  ) {
+    $check_q = pg_query($dbconn,"SELECT seqcode, sender_id ,updated_at ,answer FROM sequentsteps  WHERE sender_id = '{$user_id}' order by updated_at desc limit 1  ");
+                while ($row = pg_fetch_row($check_q)) {
+            
+                  echo $answer = $row[3];  
+                } 
+                 $replyToken = $event['replyToken'];
+                 $messages = [
+                        'type' => 'text',
+                        'text' => 'ขอทราบเบอร์โทรศัพท์ของคุณหน่อยค่ะ'
+                      ];
+   
 
+ $q = pg_exec($dbconn, "UPDATE users_register SET preg_week = $answer WHERE user_id = '{$user_id}' ") or die(pg_errormessage()); 
+$q1 = pg_exec($dbconn, "INSERT INTO sequentsteps(sender_id,seqcode,answer,nextseqcode,status,created_at,updated_at )VALUES('{$user_id}','0017','','0018','0',NOW(),NOW())") or die(pg_errormessage());
+
+ $check_q = pg_query($dbconn,"SELECT user_weight FROM users_register  WHERE user_id  = '{$user_id}' order by updated_at desc limit 1   ");
+                while ($row = pg_fetch_row($check_q)) {
+            
+                  echo $preg_weight = $row[0];  
+                } 
+ $q2 = pg_exec($dbconn, "INSERT INTO recordofpregnancy(user_id, preg_weight, preg_week,updated_at )VALUES('{$user_id}', $preg_weight , $answer ,  NOW()) ") or die(pg_errormessage());  
 
 ###########################################################################################################
 
